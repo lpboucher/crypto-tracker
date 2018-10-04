@@ -10,5 +10,8 @@ passport.use(new FacebookStrategy({
     clientSecret: keys.facebookClientSecret,
     callbackURL: '/auth/facebook/callback', 
 },
-accessToken => {console.log(accessToken)}
-))
+(accessToken, refreshToken, profile, done) => {
+        console.log("Auth Done!");
+        done(null, profile);
+    }
+));
