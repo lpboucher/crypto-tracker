@@ -5,4 +5,19 @@ module.exports = (app) => {
         '/auth/facebook',
         passport.authenticate('facebook')
     );
+
+    app.get(
+        '/auth/facebook/callback',
+        passport.authenticate('facebook', { 
+                successRedirect: '/success',
+                failureRedirect: '/'
+            }
+        )
+    );
+
+    app.get(
+        '/success', (req, res) => {
+            res.send({'done': 'success!'});
+        }
+    )
 }
