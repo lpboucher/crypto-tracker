@@ -11,13 +11,21 @@ module.exports = (app) => {
         passport.authenticate('facebook', { 
                 successRedirect: '/success',
                 failureRedirect: '/'
-            }
-        )
-    );
+        }));
+
+    app.get(
+        '/auth/logout', (req, res) => {
+            req.logout();
+            res.redirect('/out');
+        });
 
     app.get(
         '/success', (req, res) => {
             res.send({'done': 'success!'});
-        }
-    )
+        });
+
+    app.get(
+        '/out', (req, res) => {
+            res.send({'logged': 'out'});
+        });
 }
