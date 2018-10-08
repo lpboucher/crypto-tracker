@@ -12,7 +12,8 @@
     "server": "nodemon index.js",
     "client": "npm run start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "start": "node index.js"
+    "start": "node index.js",
+    "check": "lsof -i tcp:5000"
   },
   "author": "LP Boucher",
   "license": "ISC",
