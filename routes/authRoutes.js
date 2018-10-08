@@ -10,13 +10,18 @@ module.exports = (app) => {
         '/auth/facebook/callback',
         passport.authenticate('facebook', { 
                 successRedirect: '/success',
-                failureRedirect: '/'
+                failureRedirect: '/out'
         }));
+
+    app.get('/auth/current_user', (req, res) => {
+        console.log(req.user);
+        res.send(req.user);
+    });
 
     app.get(
         '/auth/logout', (req, res) => {
             req.logout();
-            res.redirect('/out');
+            res.redirect('/');
         });
 
     app.get(
