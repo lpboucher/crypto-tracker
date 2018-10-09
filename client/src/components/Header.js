@@ -12,9 +12,9 @@ class Header extends Component {
             case null:
                 return;
             case false:
-                return (<Link to="/auth/google">Login</Link>);
+                return (<a href="/auth/google">Login</a>);
             default:
-                return (<Link href="/auth/logout">Logout</Link>);
+                return (<a href="/auth/logout">Logout</a>);
         }
     }
 
