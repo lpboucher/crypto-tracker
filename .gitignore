@@ -1,3 +1,6 @@
 node_modules
 .DS_Store
 dev.js
+server.csr
+server.key
+server.pass.key

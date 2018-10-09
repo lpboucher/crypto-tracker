@@ -20,6 +20,11 @@ app.use(passport.session());
 
 require('./routes/authRoutes')(app);
 
+//adding temp self-generated certificate before mnoving to prod
+app.get('/.well-known/acme-challenge/:content', function(req, res) {
+    res.send('6tVoHnZ7xnilFnCHAm36TSpwdBto2wgSHCalOWTJ5ZY.6-FYcwu-egvHx29MGtnWxsaJ1EWfHSD1byL-jGjSdi8')
+  })
+
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static('client/build'));
 
