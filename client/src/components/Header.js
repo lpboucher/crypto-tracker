@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -11,9 +12,9 @@ class Header extends Component {
             case null:
                 return;
             case false:
-                return (<a href="/auth/google">Login</a>);
+                return (<Link to="/auth/google">Login</Link>);
             default:
-                return (<a href="/auth/logout">Logout</a>);
+                return (<Link href="/auth/logout">Logout</Link>);
         }
     }
 
