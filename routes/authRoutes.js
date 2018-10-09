@@ -2,16 +2,19 @@ const passport = require('passport');
 
 module.exports = (app) => {
     app.get(
-        '/auth/facebook',
-        passport.authenticate('facebook')
+        '/auth/google',
+        passport.authenticate('google', {
+            scope: ['profile', 'email']
+        })
     );
 
     app.get(
-        '/auth/facebook/callback',
-        passport.authenticate('facebook', { 
-                successRedirect: '/success',
-                failureRedirect: '/out'
-        }));
+        '/auth/google/callback',
+        passport.authenticate('google'),
+        (req, res) => {
+            res.redirect('/success');
+        }
+    );
 
     app.get('/auth/current_user', (req, res) => {
         console.log(req.user);
@@ -21,7 +24,7 @@ module.exports = (app) => {
     app.get(
         '/auth/logout', (req, res) => {
             req.logout();
-            res.redirect('/');
+            res.redirect('/out');
         });
 
     app.get(
