@@ -6,7 +6,7 @@ import CoinList from './CoinList';
 
 class CoinWrapper extends Component {
     componentDidMount() {
-        this.props.fetchCoins();
+        this.props.fetchCoins(20);
       }
 
     render() {
@@ -30,7 +30,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        fetchCoins: () => dispatch(fetchCoins())
+        fetchCoins: (count) => dispatch(fetchCoins(count))
     };
 }
 
