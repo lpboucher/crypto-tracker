@@ -17,8 +17,10 @@ class CoinMarketWrapper extends Component {
         this.props.fetchCoins(this.state.coinsToShow);
       };
     
-    componentDidUpdate() {
-        this.props.fetchCoins(this.state.coinsToShow);
+    componentDidUpdate(prevProps, prevState) {
+        if (this.state.coinsToShow !== prevState.coinsToShow) {
+            this.props.fetchCoins(this.state.coinsToShow);
+          }
       };
 
     handleCoinNumberChange = (event, value) => {
@@ -50,7 +52,7 @@ class CoinMarketWrapper extends Component {
                             </option>
                         ))}
                     </TextField>
-                    
+
                     {this.props.coins ? (
                             <CoinList coins={this.props.coins.data} />
                         ) : (
