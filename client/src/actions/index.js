@@ -7,7 +7,7 @@ export const fetchUser = () => async dispatch => {
     dispatch({type: FETCH_USER, payload: res.data});
 };
 
-export const fetchCoins = (count) => async dispatch => {
+export const fetchCoins = (count=20) => async dispatch => {
     const res = await axios.get(`https://api.coinmarketcap.com/v2/ticker/?convert=EUR&limit=${count}&structure=array`);
 
     dispatch({type: FETCH_COINS, payload: res.data});
