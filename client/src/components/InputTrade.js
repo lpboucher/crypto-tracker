@@ -1,34 +1,33 @@
-import React from 'react';
-import Grid from '@material-ui/core/Grid';
-import TextField from '@material-ui/core/TextField';
+import React, { Fragment } from 'react';
+import { reduxForm, Field } from 'redux-form';
+import _ from 'lodash';
 
-const InputTrade = () => {
+import TradeField from './TradeField';
+
+const FIELDS = [
+    { label: 'Symbol', name: 'symbol'},
+    { label: 'Coin Name', name: 'coinName'},
+    { label: 'Type', name: 'type'},
+];
+
+let InputTrade = ({handleSubmit}) => {
+
     return (
-        <div>
-            <Grid container spacing={24}>
-                <Grid item xs={12} sm={6}>
-                    <TextField
-                        required
-                        id="coinName"
-                        name="coinName"
-                        label="Coin name"
-                        fullWidth
-                        autoComplete="cname"
-                    />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                    <TextField
-                        required
-                        id="symbol"
-                        name="symbol"
-                        label="symbol"
-                        fullWidth
-                        autoComplete="symbol"
-                    />
-                </Grid>
-            </Grid>
-        </div>
+        <Fragment>
+            <form onSubmit={handleSubmit}>
+                { _.map(FIELDS, ({ label, name }) => {
+                    return <Field component={TradeField} type="text" label={label} name={name} key={name} />
+                })}
+                <button type="submit">Add Transaction</button>
+            </form>
+        </Fragment>
     );
 };
+
+InputTrade = reduxForm({
+    form: 'inputTrade'
+})(InputTrade);
+
+//need to eventually add validation
 
 export default InputTrade;

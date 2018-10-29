@@ -1,4 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
+import { connect } from 'react-redux';
+import { submitTrade } from '../actions';
 
 import { withStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
@@ -37,22 +39,32 @@ class AddTrade extends Component {
     handleClose = () => {
     this.setState({ open: false });
     };
+
+    handleValues= (values) => {
+        console.log(values);
+    }
     
     render() {
-        const { classes } = this.props;
+        const { classes, submitTrade } = this.props;
         return (
-            <div>
+            <Fragment>
                 <Button onClick={this.handleOpen} variant="fab" className={classes.button} color="secondary">
                     <AddIcon />
                 </Button>
                 <Modal open={this.state.open} onClose={this.handleClose}>
                     <div className={classes.modal}>
-                        <InputTrade />
+                        <InputTrade onSubmit={submitTrade} />
                     </div>
                 </Modal>
-            </div>
+            </Fragment>
         );
     }
 }
 
-export default withStyles(styles)(AddTrade);
+function mapDispatchToProps(dispatch) {
+    return {
+        submitTrade: (trade) => dispatch(submitTrade(trade))
+    };
+}
+
+export default connect(null, mapDispatchToProps)(withStyles(styles)(AddTrade));
