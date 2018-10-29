@@ -40,10 +40,6 @@ class AddTrade extends Component {
     this.setState({ open: false });
     };
 
-    handleValues= (values) => {
-        console.log(values);
-    }
-    
     render() {
         const { classes, submitTrade } = this.props;
         return (
