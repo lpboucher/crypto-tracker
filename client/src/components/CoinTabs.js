@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
@@ -19,7 +19,7 @@ class CoinTabs extends Component {
     render() {
         const { value } = this.state;
         return (
-            <div>
+            <Fragment>
                 <Tabs value={value} onChange={this.handleTabChange}>
                     <Tab label="Market Data" />
                     <Tab label="Dashboard" />
@@ -29,7 +29,7 @@ class CoinTabs extends Component {
                 {value === 1 && <TabContainer>Dashboard</TabContainer>}
                 {value === 2 && <TabContainer>Transactions</TabContainer>}
                 <AddTrade />
-            </div>
+            </Fragment>
         );
     }
 }

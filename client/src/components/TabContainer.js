@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 
 const TabContainer = (props) => {
     return (
-        <div>
+        <Fragment>
             {props.children}
-        </div>
+        </Fragment>
     );
 };
 

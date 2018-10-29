@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import AppBar from '@material-ui/core/AppBar';
@@ -20,14 +20,14 @@ class Header extends Component {
 
     render() {
         return (
-            <div>
+            <Fragment>
                 <AppBar position="static">
                     <Toolbar>
                         <Typography style={{ flex: 1 }} />
                             <Button variant="contained" color="secondary" align="right">{this.renderContent()}</Button> 
                     </Toolbar>  
                 </AppBar>
-            </div>
+            </Fragment>
         );
     }
 }

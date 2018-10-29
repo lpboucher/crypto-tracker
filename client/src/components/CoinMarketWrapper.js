@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { fetchCoins } from '../actions';
 
@@ -30,7 +30,7 @@ class CoinMarketWrapper extends Component {
     render() {
         const { coinsToShow } = this.state;
         return (
-            <div>
+            <Fragment>
                 <TextField
                         id="coin-count-selection"
                         select
@@ -56,9 +56,10 @@ class CoinMarketWrapper extends Component {
                     {this.props.coins ? (
                             <CoinList coins={this.props.coins.data} />
                         ) : (
+                            // think about changing this div to a more user-friendly interaction
                             <div>Loading...</div>
                         )}
-            </div>
+            </Fragment>
         );
     }
 }
