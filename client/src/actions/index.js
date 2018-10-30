@@ -14,8 +14,9 @@ export const fetchCoins = (count=20) => async dispatch => {
 };
 
 export const submitTrade = (trade) => async dispatch => {
-    //const res = await axios.post('/api/trade');
-    console.log(trade)
+    const res = await axios.post('/api/test');
+    //console.log(trade)
+    console.log(res.data);
 
     dispatch({type: SUBMIT_TRADE, payload: trade});
 };

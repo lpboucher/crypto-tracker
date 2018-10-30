@@ -17,4 +17,8 @@ module.exports = (app) => {
             console.log(err);
         }
     })
+
+    app.post('/api/test', async (req, res) => {
+        console.log(req.body);
+    })
 }
