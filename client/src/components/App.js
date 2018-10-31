@@ -4,6 +4,7 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import * as actions from '../actions';
 
 import Header from './Header';
+import Landing from './Landing';
 import CoinTabs from './CoinTabs';
 
 class App extends Component {
@@ -18,6 +19,7 @@ class App extends Component {
         <BrowserRouter>
           <div>
             <Header />
+            {/*<Route exact path="/" component={Landing} /> */}
             <Route exact path="/" component={CoinTabs} />
           </div>
         </BrowserRouter>
