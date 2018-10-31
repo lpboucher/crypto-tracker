@@ -1,24 +1,23 @@
+const mongoose = require('mongoose');
+
 const Trade = mongoose.model('trades');
 
 module.exports = (app) => {
     app.post('/api/trade', async (req, res) => {
         const { symbol, coinName, type } = req.body;
+        console.log(req.user);
 
-        const trade = new Trade({
-            symbol: String,
-            coinName: String,
-            type: String,
-            _user: { type: Schema.Types.ObjectId, ref: 'User'},
+        const newTrade = new Trade({
+            symbol: symbol,
+            coinName: coinName,
+            type: type,
+            _user: req.user.id,
         });
 
         try {
-            await trade.save();
+            await newTrade.save();
         } catch(err) {
             console.log(err);
         }
-    })
-
-    app.post('/api/test', async (req, res) => {
-        console.log(req.body);
     })
 }
