@@ -4,13 +4,14 @@ const Trade = mongoose.model('trades');
 
 module.exports = (app) => {
     app.post('/api/trade', async (req, res) => {
-        const { symbol, coinName, type } = req.body;
+        const { symbol, coinName, type, price } = req.body;
         console.log(req.user);
 
         const newTrade = new Trade({
             symbol: symbol,
             coinName: coinName,
             type: type,
+            price: price,
             _user: req.user.id,
         });
 
