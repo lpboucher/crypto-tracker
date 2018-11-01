@@ -12,7 +12,6 @@ const CoinTableHead = () => {
             <TableCell >Symbol</TableCell>
             <TableCell >Name</TableCell>
             <TableCell numeric>Circular Supply</TableCell>
-            <TableCell numeric>Max Supply</TableCell>
             <TableCell numeric>Price (EUR)</TableCell>
             <TableCell numeric>Price (USD)</TableCell>
             <TableCell numeric>% change (24h)</TableCell>
