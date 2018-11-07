@@ -6,6 +6,7 @@ const tradeSchema = new Schema({
     coinName: String,
     type: String,
     price: Number,
+    quantity: Number,
     _user: { type: Schema.Types.ObjectId, ref: 'User'},
 });
 

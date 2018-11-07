@@ -8,7 +8,8 @@ const FIELDS = [
     { label: 'Symbol', name: 'symbol'},
     { label: 'Coin Name', name: 'coinName'},
     { label: 'Type', name: 'type'},
-    { label: 'Price', name: 'price'}
+    { label: 'Price', name: 'price'},
+    { label: 'Quantity', name: 'quantity'}
 ];
 
 let InputTrade = ({handleSubmit}) => {
