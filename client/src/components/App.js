@@ -4,7 +4,7 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import * as actions from '../actions';
 
 import Header from './Header';
-import Landing from './Landing';
+import Login from './Login';
 import CoinTabs from './CoinTabs';
 
 class App extends Component {
@@ -20,7 +20,8 @@ class App extends Component {
           <div>
             <Header />
             {/*<Route exact path="/" component={Landing} /> */}
-            <Route exact path="/" component={CoinTabs} />
+            <Route exact path="/" component={Login} />
+            <Route exact path="/dashboard" component={CoinTabs} />
           </div>
         </BrowserRouter>
       </div>
