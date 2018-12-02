@@ -18,6 +18,7 @@ module.exports = (app) => {
 
         try {
             await newTrade.save();
+            res.sendStatus(201);
         } catch(err) {
             console.log(err);
         }
