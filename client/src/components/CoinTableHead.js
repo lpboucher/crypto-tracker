@@ -6,21 +6,21 @@ import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 
 const FIELDS = [
-  { label: 'Rank', numeric: 'true'},
-  { label: 'Symbol', numeric: 'false'},
-  { label: 'Name', numeric: 'false'},
-  { label: 'Circulating Supply', numeric: 'true'},
-  { label: 'Price (EUR)', numeric: 'true'},
-  { label: 'Price (USD)', numeric: 'true'},
-  { label: '% change (24h)', numeric: 'true'},
+  { label: 'Rank', numeric: true},
+  { label: 'Symbol', numeric: false},
+  { label: 'Name', numeric: false},
+  { label: 'Circulating Supply', numeric: true},
+  { label: 'Price (EUR)', numeric: true},
+  { label: 'Price (USD)', numeric: true},
+  { label: '% change (24h)', numeric: true},
 ];
 
 const CoinTableHead = () => {
     return (
         <TableHead>
           <TableRow>
-          { _.map(FIELDS, ({ label, numeric }) => {
-                    return <TableCell numeric={numeric}>{label}</TableCell>
+          { _.map(FIELDS, ({ label, numeric, id }) => {
+                    return <TableCell key={`${id}${label}`} numeric={numeric}>{label}</TableCell>
                 })}
           </TableRow>
         </TableHead>
