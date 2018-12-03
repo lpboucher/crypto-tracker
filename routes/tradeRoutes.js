@@ -23,4 +23,13 @@ module.exports = (app) => {
             console.log(err);
         }
     })
+
+    app.get('/api/trades', async(req, res) => {
+        try {
+            const trades = await Trade.find({ "_user": req.user._id });
+            res.json(trades);
+        } catch(err) {
+            console.log(err);
+        }
+    })
 }
