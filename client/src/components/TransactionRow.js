@@ -6,7 +6,7 @@ import TableCell from '@material-ui/core/TableCell';
 const TransactionRow = ({index, trade, key}) => {
     return (
         <TableRow key={key}>
-            <TableCell component="th" scope="row" numeric>{index}</TableCell>
+            <TableCell component="th" scope="row" numeric>{index+1}</TableCell>
             <TableCell>{trade.symbol}</TableCell>
             <TableCell>{trade.coinName}</TableCell>
             <TableCell>{trade.type}</TableCell>

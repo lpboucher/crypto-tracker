@@ -5,7 +5,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 
-const FIELDS = [
+const COINFIELDS = [
   { label: 'Rank', numeric: true},
   { label: 'Symbol', numeric: false},
   { label: 'Name', numeric: false},
@@ -15,7 +15,17 @@ const FIELDS = [
   { label: '% change (24h)', numeric: true},
 ];
 
-const CoinTableHead = () => {
+const TRANSACTIONFIELDS = [
+    { label: 'Rank', numeric: true},
+    { label: 'Symbol', numeric: false},
+    { label: 'Name', numeric: false},
+    { label: 'Buy/Sell', numeric: false},
+    { label: 'Price', numeric: true},
+    { label: 'Quantity', numeric: true},
+  ];
+
+const CoinTableHead = ({tableType}) => {
+    const FIELDS = tableType === "transactions" ? TRANSACTIONFIELDS : COINFIELDS;
     return (
         <TableHead>
           <TableRow>

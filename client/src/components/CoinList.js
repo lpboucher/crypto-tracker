@@ -11,7 +11,9 @@ const CoinList = ({recordType, coins}) => {
     return (
         <Paper>
             <Table>
-                <CoinTableHead />
+
+                {/* NEED TO CHANGE HEADINGS OF TABLE BASED ON TAB*/}
+                <CoinTableHead tableType={recordType} />
                 <TableBody>
                 { coins.map((currentCoin, index) => (
                     <Fragment>
