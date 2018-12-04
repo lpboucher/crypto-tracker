@@ -16,7 +16,7 @@ const CoinList = ({recordType, coins}) => {
                 <CoinTableHead tableType={recordType} />
                 <TableBody>
                 { coins.map((currentCoin, index) => (
-                    <Fragment>
+                    <Fragment key={currentCoin.symbol}>
                     {recordType === "transactions" ? (
                             <TransactionRow index={index} key={currentCoin._id} trade={currentCoin} />
                         ) : (
