@@ -1,10 +1,19 @@
 import React, { Fragment } from 'react';
 
-export default ({ input, label, meta: { error, touched} }) => {
+import TextField from '@material-ui/core/TextField';
+
+export default ({ input, name, label, meta: { error, touched} }) => {
     return (
         <Fragment>
-            <label>{label}</label>
-            <input {...input} style={{ marginBottom: '5px'}}/>
+            <TextField
+              {...input}
+              required
+              id={name}
+              name={name}
+              label={label}
+              fullWidth
+              autoComplete="fname"
+            />
             <div className="red-text" style={{ marginBottom: '20px'}}>
             { touched && error }
             </div>
