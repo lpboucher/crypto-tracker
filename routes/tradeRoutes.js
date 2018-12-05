@@ -14,6 +14,7 @@ module.exports = (app) => {
             price: price,
             quantity: quantity,
             _user: req.user.id,
+            totalCost: price * quantity
         });
 
         try {

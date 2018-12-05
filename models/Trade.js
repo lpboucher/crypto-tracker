@@ -7,6 +7,7 @@ const tradeSchema = new Schema({
     type: String,
     price: Number,
     quantity: Number,
+    totalCost: Number,
     _user: { type: Schema.Types.ObjectId, ref: 'User'},
 });
 
