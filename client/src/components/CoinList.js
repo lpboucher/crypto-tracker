@@ -11,8 +11,6 @@ const CoinList = ({recordType, coins}) => {
     return (
         <Paper>
             <Table>
-
-                {/* NEED TO CHANGE HEADINGS OF TABLE BASED ON TAB*/}
                 <CoinTableHead tableType={recordType} />
                 <TableBody>
                 { coins.map((currentCoin, index) => (

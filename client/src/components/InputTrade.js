@@ -8,14 +8,7 @@ import ButtonBase from '@material-ui/core/ButtonBase';
 import Button from '@material-ui/core/Button';
 
 import TradeField from './TradeField';
-
-const FIELDS = [
-    { label: 'Symbol', name: 'symbol'},
-    { label: 'Coin Name', name: 'coinName'},
-    { label: 'Type', name: 'type'},
-    { label: 'Price', name: 'price'},
-    { label: 'Quantity', name: 'quantity'}
-];
+import { TRANSACTION_FIELDS } from '../constants/Fields';
 
 let InputTrade = ({handleSubmit}) => {
 
@@ -26,17 +19,17 @@ let InputTrade = ({handleSubmit}) => {
             </Typography>
             <form onSubmit={handleSubmit}>
                 <Grid container spacing={24}>
-                    { _.map(FIELDS, ({ label, name }) => {
-                        return <Grid key={name} item xs={12} sm={6} >
-                                    <Field component={TradeField} type="text" label={label} name={name} />
-                                </Grid>
+                    { _.map(TRANSACTION_FIELDS, ({ label, name }) => {
+                        return (label !== "Rank" &&
+                            <Grid key={name} item xs={12} sm={6} >
+                                <Field component={TradeField} type="text" label={label} name={name} />
+                            </Grid>
+                        )
                     })}
-                    <Grid item m={12} >
-                        <ButtonBase type="submit">
-                            <Button align="center" variant="raised" color="primary" >
-                                Add Transaction
-                            </Button>
-                        </ButtonBase>
+                    <Grid item m={24} >
+                        <Button type="submit" align="center" variant="raised" color="primary" >
+                            Add Transaction
+                        </Button>
                     </Grid>
                 </Grid>
             </form>
