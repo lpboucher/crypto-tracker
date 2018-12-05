@@ -5,6 +5,7 @@ import Tab from '@material-ui/core/Tab';
 
 import CoinMarketWrapper from './CoinMarketWrapper';
 import CoinTransactionWrapper from './CoinTransactionWrapper';
+import CoinDashboardWrapper from './CoinDashboardWrapper';
 import TabContainer from './TabContainer';
 import AddTrade from './AddTrade';
 
@@ -27,7 +28,7 @@ class CoinTabs extends Component {
                     <Tab label="Transactions" />
                 </Tabs>
                 {value === 0 && <TabContainer><CoinMarketWrapper /></TabContainer>}
-                {value === 1 && <TabContainer>Dashboard</TabContainer>}
+                {value === 1 && <TabContainer><CoinDashboardWrapper /></TabContainer>}
                 {value === 2 && <TabContainer><CoinTransactionWrapper /></TabContainer>}
                 <AddTrade />
             </Fragment>
