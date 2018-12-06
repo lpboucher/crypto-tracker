@@ -5,7 +5,6 @@ const Trade = mongoose.model('trades');
 module.exports = (app) => {
     app.post('/api/trade', async (req, res) => {
         const { symbol, coinName, type, price, quantity } = req.body;
-        console.log(req.user);
 
         const newTrade = new Trade({
             symbol: symbol,
@@ -14,7 +13,7 @@ module.exports = (app) => {
             price: price,
             quantity: quantity,
             _user: req.user.id,
-            totalCost: price * quantity
+            //totalCost: price * quantity
         });
 
         try {
