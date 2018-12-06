@@ -3,9 +3,9 @@ import React from 'react';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 
-const TransactionRow = ({index, trade, key}) => {
+const TransactionRow = ({index, trade}) => {
     return (
-        <TableRow key={key}>
+        <TableRow>
             <TableCell component="th" scope="row" numeric>{index+1}</TableCell>
             <TableCell>{trade.symbol}</TableCell>
             <TableCell>{trade.coinName}</TableCell>
