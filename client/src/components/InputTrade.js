@@ -4,7 +4,6 @@ import _ from 'lodash';
 
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import ButtonBase from '@material-ui/core/ButtonBase';
 import Button from '@material-ui/core/Button';
 
 import TradeField from './TradeField';
@@ -19,10 +18,10 @@ let InputTrade = ({handleSubmit}) => {
             </Typography>
             <form onSubmit={handleSubmit}>
                 <Grid container spacing={24}>
-                    { _.map(TRANSACTION_FIELDS, ({ label, name }) => {
+                    { _.map(TRANSACTION_FIELDS, ({ label, name, index }) => {
                         return (label !== "Rank" &&
-                            <Grid key={name} item xs={12} sm={6} >
-                                <Field component={TradeField} type="text" label={label} name={name} />
+                            <Grid key={`${index}${label}`} item xs={12} sm={6} >
+                                <Field component={TradeField} type="text" label={label} name={label} />
                             </Grid>
                         )
                     })}

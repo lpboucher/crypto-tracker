@@ -8,11 +8,10 @@ export default ({ input, name, label, meta: { error, touched} }) => {
             <TextField
               {...input}
               required
-              id={name}
-              name={name}
+              id={label}
+              name={label}
               label={label}
               fullWidth
-              autoComplete="fname"
             />
             <div className="red-text" style={{ marginBottom: '20px'}}>
             { touched && error }
