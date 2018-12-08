@@ -13,6 +13,7 @@ export const TRANSACTION_FIELDS = [
     { label: 'Symbol', numeric: false},
     { label: 'Name', numeric: false},
     { label: 'Buy/Sell', numeric: false},
-    { label: 'Price', numeric: true},
     { label: 'Quantity', numeric: true},
+    { label: 'Price', numeric: true},
+    { label: 'Paid in...', numeric: false, type: 'dropdown'}
 ];
