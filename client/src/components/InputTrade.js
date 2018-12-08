@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 
 import TradeField from './TradeField';
+import TradeDropDown from './TradeDropDown';
 import { TRANSACTION_FIELDS } from '../constants/Fields';
 
 let InputTrade = ({handleSubmit}) => {
@@ -18,10 +19,15 @@ let InputTrade = ({handleSubmit}) => {
             </Typography>
             <form onSubmit={handleSubmit}>
                 <Grid container spacing={24}>
-                    { _.map(TRANSACTION_FIELDS, ({ label, name, index }) => {
+                    { _.map(TRANSACTION_FIELDS, ({ label, name, index, type }) => {
                         return (label !== "Rank" &&
                             <Grid key={`${index}${label}`} item xs={12} sm={6} >
-                                <Field component={TradeField} type="text" label={label} name={label} />
+                                <Field component={
+                                    type === "dropdown" ? (
+                                        TradeDropDown
+                                        ) : (
+                                        TradeField
+                                    )} type="text" label={label} name={label} />
                             </Grid>
                         )
                     })}

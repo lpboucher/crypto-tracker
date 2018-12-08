@@ -17,10 +17,10 @@ const styles = () => ({
     },
     modal: {
         position: "fixed",
-        left: '25%',
-        top: '25%',
-        width: '50%',
-        height: '50%',
+        left: '10%',
+        top: '10%',
+        width: '80%',
+        height: '80%',
         backgroundColor: 'white',
         padding: 20
     }
@@ -32,11 +32,11 @@ class AddTrade extends Component {
       };
     
     handleOpen = () => {
-    this.setState({ open: true });
+        this.setState({ open: true });
     };
 
     handleClose = () => {
-    this.setState({ open: false });
+        this.setState({ open: false });
     };
 
     render() {
