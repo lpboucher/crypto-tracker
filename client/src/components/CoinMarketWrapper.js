@@ -6,7 +6,7 @@ import TextField from '@material-ui/core/TextField';
 
 import CoinList from './CoinList';
 
-const numberOptions = [10,20,50,100];
+import { COINS_TO_QUERY_FOR } from '../constants/DropOptions';
 
 class CoinMarketWrapper extends Component {
     state = {
@@ -46,7 +46,7 @@ class CoinMarketWrapper extends Component {
                         margin="normal"
                         variant="outlined"
                         >
-                        {numberOptions.map(option => (
+                        {COINS_TO_QUERY_FOR.map(option => (
                             <option key={option} value={option}>
                             {option}
                             </option>
