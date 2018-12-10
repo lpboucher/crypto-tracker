@@ -15,5 +15,5 @@ export const TRANSACTION_FIELDS = [
     { label: 'Buy/Sell', numeric: false},
     { label: 'Quantity', numeric: true},
     { label: 'Price', numeric: true},
-    { label: 'Paid in...', numeric: false, type: 'dropdown'}
+    { label: 'Paid in', numeric: false, type: 'dropdown'}
 ];
