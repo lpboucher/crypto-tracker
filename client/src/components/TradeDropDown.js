@@ -40,7 +40,7 @@ class TradeDropDown extends Component {
                         {option}
                         </option>
                     ))}
-                </TextField>
+                    </TextField>
                 <div className="red-text" style={{ marginBottom: '20px'}}>
                     { touched && error }
                 </div>
