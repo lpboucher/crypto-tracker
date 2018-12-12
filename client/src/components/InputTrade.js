@@ -27,7 +27,7 @@ let InputTrade = ({handleSubmit}) => {
                                         TradeDropDown
                                         ) : (
                                         TradeField
-                                    )} type="text" label={label} name={label} />
+                                    )} type="text" label={label} name={name} />
                             </Grid>
                         )
                     })}

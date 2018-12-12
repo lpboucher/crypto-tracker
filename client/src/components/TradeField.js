@@ -9,7 +9,7 @@ export default ({ input, name, label, meta: { error, touched} }) => {
               {...input}
               required
               id={label}
-              name={label}
+              name={name}
               label={label}
               fullWidth
             />

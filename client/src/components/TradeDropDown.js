@@ -6,7 +6,7 @@ import { TRADE_CURRENCY } from '../constants/DropOptions';
 
 class TradeDropDown extends Component {
     state = {
-        tradeCurrency: 'EUR',
+        tradeCurrency: 'Select...',
     };
 
     handleCurrencyChange = (event, value) => {
@@ -15,7 +15,7 @@ class TradeDropDown extends Component {
 
     render() {
         const { tradeCurrency } = this.state;
-        const { input, label, meta: { error, touched} } = this.props;
+        const { input, label, name, meta: { error, touched} } = this.props;
         return (
             <Fragment>
                 <TextField
@@ -23,9 +23,10 @@ class TradeDropDown extends Component {
                     id={label}
                     select
                     label={label}
-                    name={label}
+                    name={name}
                     value={tradeCurrency}
                     onChange={this.handleCurrencyChange}
+                    InputLabelProps={{ shrink: true }}
                     SelectProps={{
                         native: true,
                         MenuProps: {
@@ -35,9 +36,10 @@ class TradeDropDown extends Component {
                     margin="normal"
                     variant="outlined"
                     >
-                    {TRADE_CURRENCY.map(option => (
+                        <option value="">Select...</option>
+                        {TRADE_CURRENCY.map(option => (
                         <option key={option} value={option}>
-                        {option}
+                            {option}
                         </option>
                     ))}
                     </TextField>
