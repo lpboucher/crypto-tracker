@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { FETCH_USER, FETCH_COINS, FETCH_TRANSACTIONS, SUBMIT_TRADE } from './types';
+import { FETCH_USER, FETCH_COINS, FETCH_TRANSACTIONS, UPDATE_PRICES, SUBMIT_TRADE } from './types';
 
 export const fetchUser = () => async dispatch => {
     const res = await axios.get('/auth/current_user');
@@ -9,8 +9,10 @@ export const fetchUser = () => async dispatch => {
 
 export const fetchCoins = (count=20) => async dispatch => {
     const res = await axios.get(`https://api.coinmarketcap.com/v2/ticker/?convert=EUR&limit=${count}&structure=array`);
-
+    const prices = res.data.data.filter(cur => cur.symbol === "BTC" || cur.symbol === "ETH");
+    
     dispatch({type: FETCH_COINS, payload: res.data});
+    dispatch({type: UPDATE_PRICES, payload: prices});
 };
 
 export const fetchTransactions = () => async dispatch => {
