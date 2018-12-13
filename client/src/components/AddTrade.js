@@ -40,7 +40,7 @@ class AddTrade extends Component {
     };
 
     render() {
-        const { classes, submitTrade } = this.props;
+        const { classes, submitTrade, prices } = this.props;
         return (
             <Fragment>
                 <Button onClick={this.handleOpen} variant="fab" className={classes.button} color="secondary">
@@ -62,4 +62,10 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
-export default connect(null, mapDispatchToProps)(withStyles(styles)(AddTrade));
+function mapStateToProps(state) {
+    return { 
+        prices: state.prices
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(AddTrade));
