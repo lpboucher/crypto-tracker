@@ -10,10 +10,12 @@ module.exports = (app) => {
             symbol: symbol,
             coinName: coinName,
             type: type,
-            price: price_amount,
+            price: {
+                amount: price_amount,
+                currency: price_currency
+            },
             quantity: quantity,
             _user: req.user.id,
-            //totalCost: price * quantity
         });
 
         try {
