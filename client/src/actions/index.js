@@ -7,17 +7,16 @@ export const fetchUser = () => async dispatch => {
     dispatch({type: FETCH_USER, payload: res.data});
 };
 
-export const fetchCoins = (count=20) => async dispatch => {
-    const res = await axios.get(`https://api.coinmarketcap.com/v2/ticker/?convert=EUR&limit=${count}&structure=array`);
-    const prices = res.data.data.filter(cur => cur.symbol === "BTC" || cur.symbol === "ETH");
+export const fetchCoins = () => async dispatch => {
+    const res = await axios.get(`https://api.coinmarketcap.com/v2/ticker/?convert=EUR&structure=array`);
+    //const prices = res.data.data.filter(cur => cur.symbol === "BTC" || cur.symbol === "ETH");
     
     dispatch({type: FETCH_COINS, payload: res.data});
-    dispatch({type: UPDATE_PRICES, payload: prices});
+    //dispatch({type: UPDATE_PRICES, payload: prices});
 };
 
 export const fetchTransactions = () => async dispatch => {
     const res = await axios.get('/api/trades');
-    console.log(res);
 
     dispatch({type: FETCH_TRANSACTIONS, payload: res.data});
 };
