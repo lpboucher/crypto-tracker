@@ -7,21 +7,21 @@ import CoinTableHead from './CoinTableHead';
 import CoinRow from './CoinRow';
 import TransactionRow from './TransactionRow';
 
-const CoinList = ({recordType, coins}) => {
+const CoinList = ({recordType, item, list, numberOfItems}) => {
     return (
         <Paper>
             <Table>
                 <CoinTableHead tableType={recordType} />
                 <TableBody>
-                { coins.map((currentCoin, index) => (
-                    <Fragment key={currentCoin.symbol}>
+                { list.slice(0, numberOfItems).map((currentItem, index) => (
+                    <Fragment key={item[currentItem].id}>
                     {recordType === "transactions" ? (
-                            <TransactionRow index={index} key={currentCoin._id} trade={currentCoin} />
+                            <TransactionRow index={index} key={item[currentItem]._id} trade={item[currentItem]} />
                         ) : (
-                            <CoinRow key={currentCoin.id} coin={currentCoin} />
+                            <CoinRow key={item[currentItem].id} coin={item[currentItem]} />
                         )}
                     </Fragment>
-                )) }
+                        )) }
                 </TableBody>
             </Table>
         </Paper>
