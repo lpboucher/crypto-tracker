@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 
+import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -7,10 +8,20 @@ import CoinTableHead from './CoinTableHead';
 import CoinRow from './CoinRow';
 import TransactionRow from './TransactionRow';
 
-const CoinList = ({recordType, item, list, numberOfItems}) => {
+const styles = {
+    root: {
+      width: '100%',
+      overflowX: 'auto',
+    },
+    table: {
+      minWidth: 700,
+    },
+  };
+
+const CoinList = ({recordType, item, list, numberOfItems, classes}) => {
     return (
-        <Paper>
-            <Table>
+        <Paper className={classes.root}>
+            <Table className={classes.table}>
                 <CoinTableHead tableType={recordType} />
                 <TableBody>
                 { list.slice(0, numberOfItems).map((currentItem, index) => (
@@ -28,4 +39,4 @@ const CoinList = ({recordType, item, list, numberOfItems}) => {
     );
 };
 
-export default CoinList;
+export default withStyles(styles)(CoinList);
