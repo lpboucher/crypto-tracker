@@ -9,8 +9,8 @@ export default function(state = null, action) {
             const normalizedData = normalize(action.payload.data, coinListSchema);
             return {
                 ...state,
-                marketData: normalizedData.entities.coins,
-                coinList: normalizedData.result
+                bySymbol: normalizedData.entities.coins,
+                allSymbols: normalizedData.result
             };
 
         default:
