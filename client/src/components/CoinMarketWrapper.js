@@ -48,7 +48,7 @@ class CoinMarketWrapper extends Component {
                     </TextField>
 
                     {this.props.coins ? (
-                            <CoinList recordType={"coins"} item={this.props.coins.marketData} list={this.props.coins.coinList} numberOfItems={coinsToShow}/>
+                            <CoinList recordType={"coins"} item={this.props.coins.bySymbol} list={this.props.coins.allSymbols} numberOfItems={coinsToShow}/>
                         ) : (
                             // think about changing this div to a more user-friendly interaction
                             <div>Loading...</div>

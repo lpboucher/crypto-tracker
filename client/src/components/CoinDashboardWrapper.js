@@ -16,8 +16,8 @@ class CoinDashboardWrapper extends Component {
             <Fragment>
                 {this.props.transactions ? (
                             <Fragment>
-                                <SimpleBarChart data={this.props.transactions.transactionData } />
-                                <CoinList recordType={"transactions"} item={this.props.transactions.transactionData} list={this.props.transactions.transactionList} />
+                                <SimpleBarChart data={this.props.transactions.bySymbol } />
+                                <CoinList recordType={"transactions"} item={this.props.transactions.bySymbol} list={this.props.transactions.allSymbols} />
                             </Fragment>
                         ) : (
                             // think about changing this div to a more user-friendly interaction

@@ -14,7 +14,7 @@ class CoinTransactionWrapper extends Component {
         return (
             <Fragment>
                     {this.props.transactions ? (
-                            <CoinList recordType={"transactions"} item={this.props.transactions.transactionData} list={this.props.transactions.transactionList}/>
+                            <CoinList recordType={"transactions"} item={this.props.transactions.bySymbol} list={this.props.transactions.allSymbols}/>
                         ) : (
                             // think about changing this div to a more user-friendly interaction
                             <div>Loading...</div>
