@@ -49,7 +49,7 @@ class CoinTabs extends Component {
                                 id={"coin-count-selection"}
                                 label={"# of coins to show"}
                                 value={coinsToShow}
-                                coinChange={this.handleCoinNumberChange}
+                                optionChange={this.handleCoinNumberChange}
                                 options={COINS_TO_QUERY_FOR}
                             />
                         </TabWrapper>

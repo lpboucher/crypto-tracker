@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 
 import TextField from '@material-ui/core/TextField';
 
-const OptionDropdown = ({id, label, value, coinChange, options}) => {
+const OptionDropdown = ({id, label, value, optionChange, options}) => {
     return (
         <Fragment>
             <TextField
@@ -10,7 +10,7 @@ const OptionDropdown = ({id, label, value, coinChange, options}) => {
                     select
                     label={label}
                     value={value}
-                    onChange={coinChange}
+                    onChange={optionChange}
                     SelectProps={{
                         native: true,
                         MenuProps: {
