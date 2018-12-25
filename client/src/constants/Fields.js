@@ -9,11 +9,11 @@ export const COIN_FIELDS = [
   ];
   
 export const TRANSACTION_FIELDS = [
-    { label: 'Rank', name: 'rank', numeric: true},
-    { label: 'Symbol', name: 'symbol', numeric: false, type: 'dropdown'},
-    { label: 'Name', name: 'coinName', numeric: false},
-    { label: 'Buy/Sell', name: 'type', numeric: false, type: 'dropdown'},
-    { label: 'Quantity', name: 'quantity', numeric: true},
-    { label: 'Price', name: 'price_amount', numeric: true},
-    { label: 'Paid in', name: 'price_currency', numeric: false, type: 'dropdown'}
+    { label: 'Rank', name: 'rank', visible: false, numeric: true},
+    { label: 'Symbol', name: 'symbol', visible: true, numeric: false, type: 'dropdown', options: []},
+    { label: 'Name', name: 'coinName', visible: true,numeric: false},
+    { label: 'Buy/Sell', name: 'type', visible: true, numeric: false, type: 'dropdown', options: ['Buy', 'Sell']},
+    { label: 'Quantity', name: 'quantity', visible: true, numeric: true},
+    { label: 'Price', name: 'price_amount', visible: true, numeric: true},
+    { label: 'Paid in', name: 'price_currency', visible: true, numeric: false, type: 'dropdown', options: ['EUR', 'USD', 'ETH', 'BTC']}
 ];
