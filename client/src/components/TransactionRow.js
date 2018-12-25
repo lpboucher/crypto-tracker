@@ -10,7 +10,7 @@ const TransactionRow = ({index, trade}) => {
             <TableCell>{trade.symbol}</TableCell>
             <TableCell>{trade.coinName}</TableCell>
             <TableCell>{trade.type}</TableCell>
-            <TableCell numeric>{trade.price}</TableCell>
+            <TableCell numeric>{trade.price.amount ? trade.price.amount : trade.price}</TableCell>
             <TableCell numeric>{trade.quantity}</TableCell>
         </TableRow>
     );

@@ -9,8 +9,8 @@ export default function(state = null, action) {
         const normalizedData = normalize(action.payload, transactionListSchema);
         return {
             ...state,
-            bySymbol: normalizedData.entities.transactions,
-            allSymbols: normalizedData.result
+            byId: normalizedData.entities.transactions,
+            allIds: normalizedData.result
         };
         default:
             return state;

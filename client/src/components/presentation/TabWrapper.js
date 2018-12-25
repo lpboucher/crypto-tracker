@@ -8,7 +8,11 @@ const TabWrapper = ({data, type, toShow, children}) => {
             {data ? (
                     <Fragment>
                         {children}
-                        <CoinList recordType={type} item={data.bySymbol} list={data.allSymbols} numberOfItems={toShow}/>
+                        <CoinList 
+                            recordType={type}
+                            item={type === "transactions" ? data.byId : data.bySymbol}
+                            list={type === "transactions" ? data.allIds : data.allSymbols}
+                            numberOfItems={toShow}/>
                     </Fragment>
                 ) : (
                     // think about changing this div to a more user-friendly interaction
