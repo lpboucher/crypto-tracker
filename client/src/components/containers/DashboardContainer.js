@@ -9,7 +9,7 @@ import OptionDropdown from '../utils/OptionDropdown';
 import TabContainer from '../TabContainer';
 import TabWrapper from '../presentation/TabWrapper';
 import SimpleBarChart from '../charts/BarChart';
-import AddTrade from '../AddTrade';
+import AddTrade from '../containers/AddTrade';
 
 import { COINS_TO_QUERY_FOR } from '../../constants/DropOptions';
 
