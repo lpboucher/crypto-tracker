@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { submitTrade } from '../../actions';
+import { submitTrade, openModal, closeModal } from '../../actions';
 
 import InputModal from '../utils/InputModal';
 
@@ -11,19 +11,10 @@ import AddIcon from '@material-ui/icons/Add';
 
 class AddTrade extends Component {
     state = {
-        open: false,
         symbol: 'BTC',
         type: 'Buy',
         currency: 'EUR'
       };
-    
-    handleOpen = () => {
-        this.setState({ open: true });
-    };
-
-    handleClose = () => {
-        this.setState({ open: false });
-    };
 
     handleChange = name => event => {
         this.setState({
@@ -32,12 +23,12 @@ class AddTrade extends Component {
       };
 
     render() {
-        const { submitTrade, coins } = this.props;
+        const { submitTrade, openModal, closeModal, coins, isOpen } = this.props;
         const altOptions = coins ? coins.allSymbols : null;
         return (
             <Fragment>
                 <Button 
-                    onClick={this.handleOpen}
+                    onClick={openModal}
                     variant="fab"
                     style={{position: "fixed", right: 20, bottom: 20}}
                     color="secondary"
@@ -46,8 +37,8 @@ class AddTrade extends Component {
                 </Button>
                 <InputModal 
                     onSubmit={submitTrade}
-                    isOpen={this.state.open}
-                    handleClose={this.handleClose}
+                    isOpen={isOpen}
+                    handleClose={closeModal}
                     handleChange={this.handleChange}
                     fields={TRANSACTION_FIELDS}
                     dynamicOptions={altOptions}
@@ -59,13 +50,16 @@ class AddTrade extends Component {
 
 function mapDispatchToProps(dispatch) {
     return {
-        submitTrade: (trade) => dispatch(submitTrade(trade))
+        submitTrade: (trade) => dispatch(submitTrade(trade)),
+        openModal: () => dispatch(openModal()),
+        closeModal: () => dispatch(closeModal()),
     };
 }
 
 function mapStateToProps(state) {
     return { 
-        coins: state.coins
+        coins: state.coins,
+        isOpen: state.views.isModalOpen,
     };
 }
 
