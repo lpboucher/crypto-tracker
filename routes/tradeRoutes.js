@@ -23,6 +23,7 @@ module.exports = (app) => {
             res.sendStatus(201);
         } catch(err) {
             console.log(err);
+            res.sendStatus(501);
         }
     })
 
