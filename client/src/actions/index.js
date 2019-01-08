@@ -1,5 +1,12 @@
 import axios from 'axios';
-import { FETCH_USER, FETCH_COINS, FETCH_TRANSACTIONS, UPDATE_PRICES, SUBMIT_TRADE_SUCCESS, OPEN_MODAL, CLOSE_MODAL } from './types';
+import { FETCH_USER,
+        FETCH_COINS,
+        FETCH_TRANSACTIONS,
+        UPDATE_PRICES,
+        SUBMIT_TRADE_SUCCESS,
+        REMOVE_TRADE_SUCCESS,
+        OPEN_MODAL,
+        CLOSE_MODAL } from './types';
 
 export const fetchUser = () => async dispatch => {
     const res = await axios.get('/auth/current_user');
@@ -31,6 +38,12 @@ export const submitTrade = (trade) => async dispatch => {
         dispatch({type: SUBMIT_TRADE_SUCCESS});
     }
 };
+
+export const removeTrade = (id) => async dispatch => {
+    //const res = await axios.post('/api/delete', id);
+    console.log(id);
+    //dispatch({type: REMOVE_TRADE_SUCCESS, payload: id});
+}
 
 export const openModal = () => dispatch => {
     dispatch({type: OPEN_MODAL})
