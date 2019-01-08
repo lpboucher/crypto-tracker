@@ -7,6 +7,7 @@ import TableBody from '@material-ui/core/TableBody';
 import CoinTableHead from './CoinTableHead';
 import CoinRow from './CoinRow';
 import TransactionRow from './TransactionRow';
+import RemoveTrade from '../components/containers/RemoveTrade';
 
 const styles = {
     root: {
@@ -27,7 +28,9 @@ const CoinList = ({recordType, item, list, numberOfItems, classes}) => {
                 { list.slice(0, numberOfItems).map((currentItem, index) => (
                     <Fragment key={item[currentItem].id}>
                     {recordType === "transactions" ? (
-                            <TransactionRow index={index} key={item[currentItem]._id} trade={item[currentItem]} />
+                            <TransactionRow index={index} key={item[currentItem]._id} trade={item[currentItem]}>
+                                <RemoveTrade tradeId={item[currentItem]._id} />
+                            </TransactionRow>
                         ) : (
                             <CoinRow key={item[currentItem].id} coin={item[currentItem]} />
                         )}
