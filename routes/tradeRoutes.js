@@ -35,4 +35,14 @@ module.exports = (app) => {
             console.log(err);
         }
     })
+
+    app.delete('/api/trade/delete/:id', async(req, res) => {
+        Trade.findByIdAndRemove(req.params.id, (err, trade) => {
+            if(err) {
+              return res.sendStatus(500);
+            } else {
+              return res.sendStatus(200);
+            }
+        })
+    })
 }
