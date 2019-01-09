@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { removeTrade } from '../../actions';
 
 import Button from '@material-ui/core/Button';
-import RemoveIcon from '@material-ui/icons/Remove';
+import RemoveIcon from '@material-ui/icons/RemoveCircle';
 
 class RemoveTrade extends Component {
     render() {
@@ -12,9 +12,8 @@ class RemoveTrade extends Component {
             <Fragment>
                 <Button 
                     onClick={() => removeTrade(tradeId)}
-                    variant="contained"
-                    size="small"
                     color="secondary"
+                    align="left"
                 >
                     <RemoveIcon />
                 </Button>
