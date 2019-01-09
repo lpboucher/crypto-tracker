@@ -4,7 +4,7 @@ import { FETCH_USER,
         FETCH_TRANSACTIONS,
         UPDATE_PRICES,
         SUBMIT_TRADE_SUCCESS,
-        REMOVE_TRADE_SUCCESS,
+        REMOVE_TRADE,
         OPEN_MODAL,
         CLOSE_MODAL } from './types';
 
@@ -40,9 +40,9 @@ export const submitTrade = (trade) => async dispatch => {
 };
 
 export const removeTrade = (id) => async dispatch => {
-    //const res = await axios.post('/api/delete', id);
-    console.log(id);
-    //dispatch({type: REMOVE_TRADE_SUCCESS, payload: id});
+    //const res = await axios.delete(`/api/trade/delete/${id}`);
+    
+    dispatch({type: REMOVE_TRADE, payload: id});
 }
 
 export const openModal = () => dispatch => {
