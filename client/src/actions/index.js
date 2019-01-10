@@ -40,7 +40,7 @@ export const submitTrade = (trade) => async dispatch => {
 };
 
 export const removeTrade = (id) => async dispatch => {
-    //const res = await axios.delete(`/api/trade/delete/${id}`);
+    const res = await axios.delete(`/api/trade/delete/${id}`);
     
     dispatch({type: REMOVE_TRADE, payload: id});
 }
