@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { removeTrade } from '../../actions';
 
 import Button from '@material-ui/core/Button';
-import RemoveIcon from '@material-ui/icons/RemoveCircle';
+import RemoveIcon from '@material-ui/icons/ClearRounded';
 
 class RemoveTrade extends Component {
     render() {
