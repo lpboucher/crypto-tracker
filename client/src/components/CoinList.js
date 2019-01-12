@@ -8,6 +8,7 @@ import CoinTableHead from './CoinTableHead';
 import CoinRow from './CoinRow';
 import TransactionRow from './TransactionRow';
 import RemoveTrade from '../components/containers/RemoveTrade';
+import UpdateTrade from '../components/containers/UpdateTrade';
 
 const styles = {
     root: {
@@ -29,6 +30,7 @@ const CoinList = ({recordType, item, list, numberOfItems, classes}) => {
                     <Fragment key={item[currentItem].id}>
                     {recordType === "transactions" ? (
                             <TransactionRow index={index} key={item[currentItem]._id} trade={item[currentItem]}>
+                                <UpdateTrade />
                                 <RemoveTrade tradeId={item[currentItem]._id} />
                             </TransactionRow>
                         ) : (
