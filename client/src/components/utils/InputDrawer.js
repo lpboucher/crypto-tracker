@@ -2,8 +2,7 @@ import React, { Fragment } from 'react';
 import { reduxForm, Field } from 'redux-form';
 import _ from 'lodash';
 
-import Dialog from '@material-ui/core/Dialog';
-import DialogContent from '@material-ui/core/DialogContent';
+import Drawer from '@material-ui/core/Drawer';
 import Button from '@material-ui/core/Button';
 
 import Grid from '@material-ui/core/Grid';
@@ -12,7 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import InputField from './InputField';
 import OptionDropdown from './OptionDropdown'
 
-let InputModal = ({handleSubmit,
+let InputDrawer = ({handleSubmit,
                     isOpen,
                     handleClose,
                     handleChange,
@@ -20,9 +19,8 @@ let InputModal = ({handleSubmit,
                     dynamicOptions}) => {
     return (
         <Fragment>
-            <Dialog open={isOpen} onClose={handleClose}>
-                <DialogContent >
-                    <Typography align="center" component="h1" variant="h1" gutterBottom>
+            <Drawer anchor="bottom" open={isOpen} onClose={handleClose}>
+                    <Typography align="center" component="h1" variant="headline" gutterBottom>
                         Input new trade
                     </Typography>
                     <form onSubmit={handleSubmit}>
@@ -59,16 +57,15 @@ let InputModal = ({handleSubmit,
                             </Grid>
                         </Grid>
                     </form>
-                </DialogContent>
-            </Dialog>
+            </Drawer>
       </Fragment>
     );
 };
 
-InputModal = reduxForm({
+InputDrawer = reduxForm({
     form: 'inputTradeForm'
-})(InputModal);
+})(InputDrawer);
 
 //need to eventually add validation
 
-export default InputModal;
+export default InputDrawer;

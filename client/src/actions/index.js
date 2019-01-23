@@ -5,8 +5,8 @@ import { FETCH_USER,
         UPDATE_PRICES,
         SUBMIT_TRADE_SUCCESS,
         REMOVE_TRADE,
-        OPEN_MODAL,
-        CLOSE_MODAL } from './types';
+        OPEN_DRAWER,
+        CLOSE_DRAWER } from './types';
 
 export const fetchUser = () => async dispatch => {
     const res = await axios.get('/auth/current_user');
@@ -45,10 +45,10 @@ export const removeTrade = (id) => async dispatch => {
     dispatch({type: REMOVE_TRADE, payload: id});
 }
 
-export const openModal = () => dispatch => {
-    dispatch({type: OPEN_MODAL})
+export const openDrawer = () => dispatch => {
+    dispatch({type: OPEN_DRAWER})
 }
 
-export const closeModal = () => dispatch => {
-    dispatch({type: CLOSE_MODAL})
+export const closeDrawer = () => dispatch => {
+    dispatch({type: CLOSE_DRAWER})
 }
