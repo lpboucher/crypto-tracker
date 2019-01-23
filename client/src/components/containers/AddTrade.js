@@ -1,8 +1,8 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { submitTrade, openModal, closeModal } from '../../actions';
+import { submitTrade, openDrawer, closeDrawer } from '../../actions';
 
-import InputModal from '../utils/InputModal';
+import InputDrawer from '../utils/InputDrawer';
 
 import { TRANSACTION_FIELDS } from '../../constants/Fields';
 
@@ -23,22 +23,22 @@ class AddTrade extends Component {
       };
 
     render() {
-        const { submitTrade, openModal, closeModal, coins, isOpen } = this.props;
+        const { submitTrade, openDrawer, closeDrawer, coins, isOpen } = this.props;
         const altOptions = coins ? coins.allSymbols : null;
         return (
             <Fragment>
                 <Button 
-                    onClick={openModal}
+                    onClick={openDrawer}
                     variant="fab"
                     style={{position: "fixed", right: 20, bottom: 20}}
                     color="secondary"
                 >
                     <AddIcon />
                 </Button>
-                <InputModal 
+                <InputDrawer 
                     onSubmit={submitTrade}
                     isOpen={isOpen}
-                    handleClose={closeModal}
+                    handleClose={closeDrawer}
                     handleChange={this.handleChange}
                     fields={TRANSACTION_FIELDS}
                     dynamicOptions={altOptions}
@@ -51,15 +51,15 @@ class AddTrade extends Component {
 function mapDispatchToProps(dispatch) {
     return {
         submitTrade: (trade) => dispatch(submitTrade(trade)),
-        openModal: () => dispatch(openModal()),
-        closeModal: () => dispatch(closeModal()),
+        openDrawer: () => dispatch(openDrawer()),
+        closeDrawer: () => dispatch(closeDrawer()),
     };
 }
 
 function mapStateToProps(state) {
     return { 
         coins: state.coins,
-        isOpen: state.views.isModalOpen,
+        isOpen: state.views.isDrawerOpen,
     };
 }
 
