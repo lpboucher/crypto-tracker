@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { openDrawer, closeDrawer } from '../../actions';
+import { openDrawer } from '../../actions';
 
 import Button from '@material-ui/core/Button';
 import UpdateIcon from '@material-ui/icons/MoreHorizRounded';
@@ -26,7 +26,6 @@ function mapDispatchToProps(dispatch) {
     return {
         //removeTrade: (id) => dispatch(removeTrade(id)),
         openDrawer: () => dispatch(openDrawer()),
-        closeDrawer: () => dispatch(closeDrawer()),
     };
 }
 
