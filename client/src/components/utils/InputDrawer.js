@@ -6,12 +6,14 @@ import Drawer from '@material-ui/core/Drawer';
 import Button from '@material-ui/core/Button';
 
 import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 
 import InputField from './InputField';
 import OptionDropdown from './OptionDropdown'
 
-let InputDrawer = ({handleSubmit,
+let InputDrawer = ({
+                    handleSubmit,
                     isOpen,
                     handleClose,
                     handleChange,
@@ -20,6 +22,7 @@ let InputDrawer = ({handleSubmit,
     return (
         <Fragment>
             <Drawer anchor="bottom" open={isOpen} onClose={handleClose}>
+                <Paper>
                     <Typography align="center" component="h1" variant="headline" gutterBottom>
                         Input new trade
                     </Typography>
@@ -57,6 +60,7 @@ let InputDrawer = ({handleSubmit,
                             </Grid>
                         </Grid>
                     </form>
+                    </Paper>
             </Drawer>
       </Fragment>
     );
