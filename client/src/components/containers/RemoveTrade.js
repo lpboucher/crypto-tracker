@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { removeTrade } from '../../actions';
+import { removeTrade } from '../../ducks/trades';
 
 import Button from '@material-ui/core/Button';
 import RemoveIcon from '@material-ui/icons/ClearRounded';

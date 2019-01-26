@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { BrowserRouter, Route } from 'react-router-dom';
-import * as actions from '../actions';
+import { fetchUser } from '../ducks/auth';
 
-import Header from './Header';
-import Login from './Login';
-import DashboardContainer from '../components/containers/DashboardContainer';
+import Header from './containers/Header';
+import Login from './presentation/Login';
+import DashboardContainer from './containers/DashboardContainer';
 
 class App extends Component {
 
@@ -29,4 +29,10 @@ class App extends Component {
   }
 }
 
-export default connect(null, actions)(App);
+function mapDispatchToProps(dispatch) {
+  return {
+      fetchUser: () => dispatch(fetchUser()),
+  };
+}
+
+export default connect(null, mapDispatchToProps)(App);

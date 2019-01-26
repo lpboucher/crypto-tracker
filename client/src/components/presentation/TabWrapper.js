@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 
-import CoinList from '../CoinList';
+import CoinList from './CoinList';
 
 const TabWrapper = ({data, type, toShow, children}) => {
     return (

@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { openDrawer } from '../../actions';
+import { openDrawer } from '../../ducks/views';
 
 import Button from '@material-ui/core/Button';
 import UpdateIcon from '@material-ui/icons/MoreHorizRounded';

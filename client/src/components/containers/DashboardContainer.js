@@ -1,13 +1,15 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { submitTrade, fetchCoins, fetchTransactions, closeDrawer } from '../../actions';
+import { closeDrawer } from '../../ducks/views';
+import { fetchCoins } from '../../ducks/coins';
+import { submitTrade, fetchTransactions } from '../../ducks/trades';
 
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import OptionDropdown from '../utils/OptionDropdown';
 
 import InputDrawer from '../utils/InputDrawer';
-import TabContainer from '../TabContainer';
+import TabContainer from '../utils/TabContainer';
 import TabWrapper from '../presentation/TabWrapper';
 import SimpleBarChart from '../charts/BarChart';
 import AddTrade from '../containers/AddTrade';

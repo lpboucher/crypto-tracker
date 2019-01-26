@@ -4,7 +4,7 @@ import _ from 'lodash';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
-import { COIN_FIELDS, TRANSACTION_FIELDS } from '../constants/Fields';
+import { COIN_FIELDS, TRANSACTION_FIELDS } from '../../constants/Fields';
 
 const CoinTableHead = ({tableType}) => {
     const FIELDS = tableType === "transactions" ? TRANSACTION_FIELDS : COIN_FIELDS;
