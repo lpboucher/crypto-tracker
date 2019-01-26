@@ -1,16 +1,14 @@
 import { combineReducers } from 'redux';
 import { reducer as reduxForm } from 'redux-form';
-import authReducer from './authReducer';
-import coinReducer from './coinReducer';
-import priceReducer from './priceReducer';
-import transactionReducer from './transactionReducer';
-import globalReducer from './globalReducer';
+import authReducer from '../ducks/auth';
+import coinReducer from '../ducks/coins';
+import transactionReducer from '../ducks/trades';
+import viewsReducer from '../ducks/views';
 
 export default combineReducers({
     auth: authReducer,
     coins: coinReducer,
-    prices: priceReducer,
     form: reduxForm,
     transactions: transactionReducer,
-    views: globalReducer,
+    views: viewsReducer,
 });
