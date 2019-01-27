@@ -20,7 +20,7 @@ module.exports = (app) => {
 
         try {
             await newTrade.save();
-            res.sendStatus(201);
+            res.json(newTrade);
         } catch(err) {
             console.log(err);
             res.sendStatus(501);
