@@ -1,19 +1,19 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { openDrawer } from '../../ducks/views';
+import { enterTradeDetails } from '../../ducks/trades';
 
 import Button from '@material-ui/core/Button';
 import UpdateIcon from '@material-ui/icons/MoreHorizRounded';
 
 class UpdateTrade extends Component {
     render() {
-        const { openDrawer } = this.props;
+        const { enterTradeDetails, trade } = this.props;
         return (
             <Fragment>
                 <Button 
                     color="secondary"
                     align="left"
-                    onClick={openDrawer}
+                    onClick={() => enterTradeDetails(trade)}
                 >
                     <UpdateIcon />
                 </Button>
@@ -25,7 +25,7 @@ class UpdateTrade extends Component {
 function mapDispatchToProps(dispatch) {
     return {
         //removeTrade: (id) => dispatch(removeTrade(id)),
-        openDrawer: () => dispatch(openDrawer()),
+        enterTradeDetails: (trade) => dispatch(enterTradeDetails(trade)),
     };
 }
 

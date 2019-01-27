@@ -30,7 +30,7 @@ const CoinList = ({recordType, item, list, numberOfItems, classes}) => {
                     <Fragment key={item[currentItem].id}>
                     {recordType === "transactions" ? (
                             <TransactionRow index={index} key={item[currentItem]._id} trade={item[currentItem]}>
-                                <UpdateTrade />
+                                <UpdateTrade trade={item[currentItem]}/>
                                 <RemoveTrade tradeId={item[currentItem]._id} />
                             </TransactionRow>
                         ) : (
