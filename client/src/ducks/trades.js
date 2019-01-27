@@ -3,33 +3,62 @@ import { schema, normalize } from 'normalizr';
 
 
 //Action Types
-export const FETCH_TRADES = 'trades/fetch_trades';
+export const FETCH_TRADES_REQUEST = 'trades/fetch_trades_request';
+export const FETCH_TRADES_SUCCESS = 'trades/fetch_trades_success';
+export const FETCH_TRADES_FAILURE = 'trades/fetch_trades_failure';
+export const SUBMIT_TRADE_REQUEST = 'trades/submit_trade_request';
 export const SUBMIT_TRADE_SUCCESS = 'trades/submit_trade_success';
-export const REMOVE_TRADE = 'trades/remove_trade';
+export const SUBMIT_TRADE_FAILURE = 'trades/submit_trade_failure';
+export const REMOVE_TRADE_REQUEST = 'trades/remove_trade_request';
+export const REMOVE_TRADE_SUCCESS = 'trades/remove_trade_success';
+export const REMOVE_TRADE_FAILURE = 'trades/remove_trade_failure';
+export const UPDATE_ACTIVE_DETAILS = 'trades/update_active_details';
+export const ENTER_NEW_DETAILS = 'trades/enter_new_details';
 
 
 //Action Creators
 export const fetchTransactions = () => async dispatch => {
-    const res = await axios.get('/api/trades');
+    dispatch({ type: FETCH_TRADES_REQUEST });
+    
+    try {
+        const res = await axios.get('/api/trades');
+        
+        dispatch({ type: FETCH_TRADES_SUCCESS, payload: res.data });
+    } catch(err) {
+        dispatch({ type: FETCH_TRADES_FAILURE});
+    }
+};
 
-    dispatch({type: FETCH_TRADES, payload: res.data});
+export const enterTradeDetails = (trade) => dispatch => {
+    if (trade) {
+        dispatch({ type: UPDATE_ACTIVE_DETAILS, payload: trade })
+    } else {
+        dispatch({ type: ENTER_NEW_DETAILS })
+    }
 };
 
 export const submitTrade = (trade) => async dispatch => {
-    const res = await axios.post('/api/trade', trade);
-    console.log(res.statusText);
+    dispatch({ type: SUBMIT_TRADE_REQUEST });
 
-    if (res.statusText !== 'Created') {
-        //dispatch({type: SUBMIT_TRADE, payload: trade});
-    } else {
-        dispatch({type: SUBMIT_TRADE_SUCCESS});
+    try {
+        const res = await axios.post('/api/trade', trade);
+
+        dispatch({type: SUBMIT_TRADE_SUCCESS, payload: res.data});
+    } catch(err) {
+        dispatch({type: SUBMIT_TRADE_FAILURE});
     }
 };
 
 export const removeTrade = (id) => async dispatch => {
-    const res = await axios.delete(`/api/trade/delete/${id}`);
-    
-    dispatch({type: REMOVE_TRADE, payload: id});
+    dispatch({type: REMOVE_TRADE_REQUEST});
+
+    try {
+        await axios.delete(`/api/trade/delete/${id}`);
+
+        dispatch({type: REMOVE_TRADE_SUCCESS, payload: id});
+    } catch(err) {
+        dispatch({type: REMOVE_TRADE_FAILURE});
+    }
 }
 
 
@@ -39,16 +68,40 @@ const transactionListSchema = [ transactionSchema ];
 
 
 //Reducer
-export default function reducer(state = null, action) {
+const initialState = {
+    byId: {},
+    allIds: [],
+    activeTradeValues: {},
+    isLoading: false
+  };
+
+export default function reducer(state = initialState, action) {
     switch(action.type) {
-        case FETCH_TRADES:
+        case FETCH_TRADES_REQUEST:
+        case SUBMIT_TRADE_REQUEST:
+        case REMOVE_TRADE_REQUEST:
+            return {
+                ...state,
+                isLoading: true,
+            };
+        case FETCH_TRADES_SUCCESS:
             const normalizedData = normalize(action.payload, transactionListSchema);
             return {
                 ...state,
                 byId: normalizedData.entities.transactions,
-                allIds: normalizedData.result
+                allIds: normalizedData.result,
+                isLoading: false,
             };
-        case REMOVE_TRADE:
+        case SUBMIT_TRADE_SUCCESS:
+            return {
+                allIds: [ ...state.allIds, action.payload.id],
+                byId: {
+                    ...state.byId,
+                    [action.payload.id]: action.payload
+                },
+                isLoading: false
+            }
+        case REMOVE_TRADE_SUCCESS:
             const removedIds = state.allIds.filter(id => {
                 return id !== action.payload
               })
@@ -56,8 +109,27 @@ export default function reducer(state = null, action) {
                  
             return {
                     allIds: removedIds,
-                    byId: state.byId
+                    byId: state.byId,
+                    isLoading: false
             };
+        //need to account for errors in fetching trades, return error message
+        case FETCH_TRADES_FAILURE:
+        case SUBMIT_TRADE_FAILURE:
+        case REMOVE_TRADE_FAILURE:
+            return {
+                ...state,
+                isLoading: false,
+            };
+        case UPDATE_ACTIVE_DETAILS:
+            return {
+                ...state,
+                activeTradeValues: action.payload,
+            }
+        case ENTER_NEW_DETAILS:
+            return {
+                ...state,
+                activeTradeValues: {},
+            }
         default:
             return state;
     }
