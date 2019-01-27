@@ -2,6 +2,8 @@ import React, { Fragment } from 'react';
 
 import CoinList from './CoinList';
 
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 const TabWrapper = ({data, type, toShow, children}) => {
     return (
         <Fragment>
@@ -16,7 +18,7 @@ const TabWrapper = ({data, type, toShow, children}) => {
                     </Fragment>
                 ) : (
                     // think about changing this div to a more user-friendly interaction
-                    <div>Loading...</div>
+                    <CircularProgress />
                 )}
         </Fragment>
     );
