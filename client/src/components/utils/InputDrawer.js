@@ -1,6 +1,8 @@
 import React, { Fragment } from 'react';
+import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
 import _ from 'lodash';
+import { enterTradeDetails } from '../../ducks/trades';
 
 import Drawer from '@material-ui/core/Drawer';
 import Button from '@material-ui/core/Button';
@@ -18,7 +20,8 @@ let InputDrawer = ({
                     handleClose,
                     handleChange,
                     fields,
-                    dynamicOptions}) => {
+                    dynamicOptions,
+                }) => {
     return (
         <Fragment>
             <Drawer anchor="bottom" open={isOpen} onClose={handleClose}>
@@ -38,7 +41,6 @@ let InputDrawer = ({
                                                     label={label}
                                                     name={name}
                                                     id={`${index}${label}`}
-                                                    value="Select..."
                                                     optionChange={handleChange}
                                                     options={options.length ? options : dynamicOptions}
                                                 />
@@ -66,10 +68,18 @@ let InputDrawer = ({
     );
 };
 
-InputDrawer = reduxForm({
+let inputTradeForm = reduxForm({
     form: 'inputTradeForm'
-})(InputDrawer);
+  })(InputDrawer)
+  
+let InitializeFromStateForm = connect(
+    state => ({
+      initialValues: state.transactions.activeTradeValues,
+      enableReinitialize: true
+    }), {enterTradeDetails}
+  )(inputTradeForm)
 
 //need to eventually add validation
 
-export default InputDrawer;
+export default InitializeFromStateForm;
+

@@ -123,7 +123,15 @@ export default function reducer(state = initialState, action) {
         case UPDATE_ACTIVE_DETAILS:
             return {
                 ...state,
-                activeTradeValues: action.payload,
+                activeTradeValues: {
+                    id: action.payload._id,
+                    symbol: action.payload.symbol,
+                    coinName: action.payload.coinName,
+                    type: action.payload.type,
+                    quantity: action.payload.quantity,
+                    price_amount: action.payload.price.amount,
+                    price_currency: action.payload.price.currency,
+                }
             }
         case ENTER_NEW_DETAILS:
             return {

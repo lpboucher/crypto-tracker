@@ -6,7 +6,7 @@ import { submitTrade, fetchTransactions } from '../../ducks/trades';
 
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import OptionDropdown from '../utils/OptionDropdown';
+import OptionFilter from '../utils/OptionFilter';
 
 import InputDrawer from '../utils/InputDrawer';
 import TabContainer from '../utils/TabContainer';
@@ -21,9 +21,6 @@ class CoinTabs extends Component {
     state = {
         value: 0,
         coinsToShow: 20,
-        symbol: 'BTC',
-        type: 'Buy',
-        currency: 'EUR',
     };
 
     componentDidMount() {
@@ -58,7 +55,7 @@ class CoinTabs extends Component {
                 {value === 0 && 
                     <TabContainer>
                         <TabWrapper type={'coins'} data={coins} toShow={coinsToShow}>
-                            <OptionDropdown
+                            <OptionFilter
                                 id={"coin-count-selection"}
                                 label={"# of coins to show"}
                                 value={coinsToShow}
@@ -87,6 +84,7 @@ class CoinTabs extends Component {
                     handleChange={this.handleFieldChange}
                     fields={TRANSACTION_FIELDS}
                     dynamicOptions={coins ? coins.allSymbols : null}
+                    initialValues={transactions.activeTradeValues}
                     />
             </Fragment>
         );
