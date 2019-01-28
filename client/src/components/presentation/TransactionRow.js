@@ -11,8 +11,8 @@ const TransactionRow = ({ index, trade, children }) => {
             <TableCell>{trade.coinName}</TableCell>
             <TableCell>{trade.type}</TableCell>
             <TableCell numeric>{trade.quantity}</TableCell>
-            <TableCell numeric>{trade.price.amount ? trade.price.amount : trade.price}</TableCell>
-            <TableCell>EUR</TableCell>
+            <TableCell numeric>{trade.price.amount}</TableCell>
+            <TableCell>{trade.price.currency}</TableCell>
             <TableCell>{children}</TableCell>
         </TableRow>
     );
