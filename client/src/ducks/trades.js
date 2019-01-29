@@ -38,11 +38,16 @@ export const enterTradeDetails = (trade) => dispatch => {
 };
 
 export const submitTrade = (trade) => async dispatch => {
-    dispatch({ type: SUBMIT_TRADE_REQUEST });
+    dispatch({ type: SUBMIT_TRADE_REQUEST })
+
+    let res;
 
     try {
-        const res = await axios.post('/api/trade', trade);
-
+        if(trade.id) { 
+            res = await axios.put(`/api/trade/update/${trade.id}`, trade);
+        } else {
+            res = await axios.post('/api/trade/new', trade);
+        }
         dispatch({type: SUBMIT_TRADE_SUCCESS, payload: res.data});
     } catch(err) {
         dispatch({type: SUBMIT_TRADE_FAILURE});

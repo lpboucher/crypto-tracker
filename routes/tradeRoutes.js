@@ -3,9 +3,9 @@ const mongoose = require('mongoose');
 const Trade = mongoose.model('trades');
 
 module.exports = (app) => {
-    app.post('/api/trade', async (req, res) => {
+    app.post('/api/trade/new', async (req, res) => {
         const { symbol, coinName, type, price_amount, quantity, price_currency } = req.body;
-    
+
         const newTrade = new Trade({
             symbol: symbol,
             coinName: coinName,
@@ -22,9 +22,21 @@ module.exports = (app) => {
             await newTrade.save();
             res.json(newTrade);
         } catch(err) {
-            console.log(err);
-            res.sendStatus(501);
+            
         }
+    })
+
+    app.put('/api/trade/update/:id', async (req, res) => {
+
+        await Trade.findByIdAndUpdate(req.params.id, {$set: req.body}, {new: true}, (err, update) => {
+            if(err) {
+                console.log(err);
+                return res.sendStatus(501);
+            } else {
+                console.log(update);
+                res.json(update);
+            }
+        })
     })
 
     app.get('/api/trades', async(req, res) => {
