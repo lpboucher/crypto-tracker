@@ -7,7 +7,6 @@ export const FETCH_TRADES_REQUEST = 'trades/fetch_trades_request';
 export const FETCH_TRADES_SUCCESS = 'trades/fetch_trades_success';
 export const FETCH_TRADES_FAILURE = 'trades/fetch_trades_failure';
 export const SUBMIT_TRADE_REQUEST = 'trades/submit_trade_request';
-export const SUBMIT_TRADE_SUCCESS = 'trades/submit_trade_success';
 export const NEW_TRADE_SUCCESS = 'trades/new_trade_success';
 export const UPDATE_TRADE_SUCCESS = 'trades/update_trade_success';
 export const SUBMIT_TRADE_FAILURE = 'trades/submit_trade_failure';
@@ -47,10 +46,11 @@ export const submitTrade = (trade) => async dispatch => {
     try {
         if(trade.id) { 
             res = await axios.put(`/api/trade/update/${trade.id}`, trade);
+            dispatch({type: UPDATE_TRADE_SUCCESS, payload: res.data});
         } else {
             res = await axios.post('/api/trade/new', trade);
+            dispatch({type: NEW_TRADE_SUCCESS, payload: res.data});
         }
-        dispatch({type: SUBMIT_TRADE_SUCCESS, payload: res.data});
     } catch(err) {
         dispatch({type: SUBMIT_TRADE_FAILURE});
     }
@@ -99,8 +99,27 @@ export default function reducer(state = initialState, action) {
                 allIds: normalizedData.result,
                 isLoading: false,
             };
-        case SUBMIT_TRADE_SUCCESS:
+        case UPDATE_TRADE_SUCCESS:
+            const updatedIds = state.allIds.map(item => {
+                if(item === action.payload.id) {
+                    return action.payload.id;
+                }
+                return item;
+            });
             return {
+                ...state,
+                allIds: updatedIds,
+                byId: {
+                    ...state.byId,
+                    [action.payload.id]: {
+                        ...action.payload
+                    }
+                },
+                isLoading: false
+            }
+        case NEW_TRADE_SUCCESS:
+            return {
+                ...state,
                 allIds: [ ...state.allIds, action.payload.id],
                 byId: {
                     ...state.byId,
@@ -115,6 +134,7 @@ export default function reducer(state = initialState, action) {
             delete state.byId[action.payload];
                  
             return {
+                    ...state,
                     allIds: removedIds,
                     byId: state.byId,
                     isLoading: false

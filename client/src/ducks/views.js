@@ -1,4 +1,4 @@
-import { SUBMIT_TRADE_SUCCESS, UPDATE_ACTIVE_DETAILS, ENTER_NEW_DETAILS } from './trades'; 
+import { NEW_TRADE_SUCCESS, UPDATE_TRADE_SUCCESS, UPDATE_ACTIVE_DETAILS, ENTER_NEW_DETAILS } from './trades'; 
 
 //Action Types
 export const OPEN_DRAWER = 'views/open_drawer';
@@ -26,7 +26,8 @@ export default function reducer(state = initialState, action) {
         case UPDATE_ACTIVE_DETAILS:
         case OPEN_DRAWER:
             return { ...state, isDrawerOpen: true };
-        case SUBMIT_TRADE_SUCCESS:
+        case UPDATE_TRADE_SUCCESS:
+        case NEW_TRADE_SUCCESS:
         case CLOSE_DRAWER:
             return { ...state, isDrawerOpen: false };
         default:
