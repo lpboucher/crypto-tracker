@@ -2,7 +2,8 @@ import React, { Fragment } from 'react';
 
 import TextField from '@material-ui/core/TextField';
 
-const InputField = ({ input, name, label, meta: { error, touched} }) => {
+const InputField = ({ input, name, label, meta: { error, touched}, autofill, autoShow }) => {
+    const shownVal = autofill ? autoShow : '';
     return (
         <Fragment>
             <TextField
@@ -11,6 +12,7 @@ const InputField = ({ input, name, label, meta: { error, touched} }) => {
               id={label}
               name={name}
               label={label}
+              value={shownVal}
               fullWidth
               variant="outlined"
               margin="normal"

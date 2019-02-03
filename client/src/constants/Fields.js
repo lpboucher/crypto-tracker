@@ -11,7 +11,7 @@ export const COIN_FIELDS = [
 export const TRANSACTION_FIELDS = [
     { label: 'Rank', name: 'rank', visible: false, numeric: true},
     { label: 'Symbol', name: 'symbol', visible: true, numeric: false, type: 'dropdown', options: []},
-    { label: 'Name', name: 'coinName', visible: true,numeric: false},
+    { label: 'Name', name: 'coinName', visible: true, numeric: false, autofill: true},
     { label: 'Buy/Sell', name: 'type', visible: true, numeric: false, type: 'dropdown', options: ['Buy', 'Sell']},
     { label: 'Quantity', name: 'quantity', visible: true, numeric: true},
     { label: 'Price', name: 'price_amount', visible: true, numeric: true},
