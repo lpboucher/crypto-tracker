@@ -33,7 +33,6 @@ module.exports = (app) => {
                 console.log(err);
                 return res.sendStatus(501);
             } else {
-                console.log(update);
                 res.json(update);
             }
         })
