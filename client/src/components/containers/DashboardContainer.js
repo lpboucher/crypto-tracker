@@ -84,6 +84,7 @@ class CoinTabs extends Component {
                     handleChange={this.handleFieldChange}
                     fields={TRANSACTION_FIELDS}
                     dynamicOptions={coins ? coins.allSymbols : null}
+                    coinNames={coins ? coins.bySymbol : null}
                     initialValues={transactions.activeTradeValues}
                     />
             </Fragment>
