@@ -1,18 +1,33 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
-import { reduxForm, Field, formValueSelector } from 'redux-form';
-import _ from 'lodash';
+import { reduxForm, Field, formValueSelector, change } from 'redux-form';
+import { withStyles } from '@material-ui/core/styles';
+
 import { enterTradeDetails } from '../../ducks/trades';
+import validate from './validations/tradeValidate';
+import { CURRENCIES } from '../../constants/DropOptions';
 
-import Drawer from '@material-ui/core/Drawer';
-import Button from '@material-ui/core/Button';
+import renderTextField from './forms/renderTextField';
+import renderSelectField from './forms/renderSelectField';
+import renderRadioGroup from './forms/renderRadioGroup';
 
-import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
+import Drawer from '@material-ui/core/Drawer';
+import Divider from '@material-ui/core/Divider';
+import FormLabel from '@material-ui/core/FormLabel';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Button from '@material-ui/core/Button';
+import Radio from '@material-ui/core/Radio';
 
-import InputField from './InputField';
-import OptionDropdown from './OptionDropdown';
+const styles = {
+    paper: {
+      width: '25%',
+      padding: '50px'
+    },
+    root: {
+        marginBottom: '20px',
+    }
+  };
 
 const selector = formValueSelector('inputTradeForm');
 
@@ -20,61 +35,82 @@ let InputDrawer = ({
                     handleSubmit,
                     isOpen,
                     handleClose,
-                    handleChange,
-                    fields,
-                    dynamicOptions,
-                    coinName
+                    coinSymbols,
+                    coinNames,
+                    coinName,
+                    change,
+                    classes
                 }) => {
     return (
         <Fragment>
-            <Drawer anchor="bottom" open={isOpen} onClose={handleClose}>
-                <Paper>
-                    <Typography align="center" component="h1" variant="headline" gutterBottom>
-                        Input new trade
-                    </Typography>
-                    <form onSubmit={handleSubmit}>
-                        <Grid container spacing={24}>
-                            { _.map(fields, ({ label, name, visible, index, type, options, autofill }) => {
-                                return (visible &&
-                                    <Grid key={`${index}${label}`} item xs={12} sm={6} >
-                                        {type === "dropdown" ? (
-                                                <Field 
-                                                    component={OptionDropdown}
-                                                    type="text"
-                                                    label={label}
-                                                    name={name}
-                                                    id={`${index}${label}`}
-                                                    optionChange={handleChange}
-                                                    options={options.length ? options : dynamicOptions}
-                                                />
-                                                ) : (
-                                                <Field 
-                                                    component={InputField}
-                                                    type="text"
-                                                    label={label}
-                                                    name={name}
-                                                    autofill={autofill}
-                                                    autoShow={coinName}
-                                                />
-                                        )}
-                                    </Grid>
-                                )
-                            })}
-                            <Grid item m={24} >
-                                <Button type="submit" align="center" variant="raised" color="primary" >
-                                    Add Transaction
-                                </Button>
-                            </Grid>
-                        </Grid>
-                    </form>
-                    </Paper>
+            <Drawer anchor="right" open={isOpen} onClose={handleClose} classes={{paper: classes.paper}}>
+                <Typography align="center" component="h1" variant="headline" gutterBottom>
+                    Input new trade
+                </Typography>
+                <form onSubmit={handleSubmit}>
+                    { coinSymbols &&
+                    <div>
+                        <Field name="symbol" component={renderSelectField} onFocus={() => change('coinName', coinName)}label="Symbol" fullWidth variant='outlined'>
+                        { coinSymbols.map(option => {
+                            return <option key={option} value={option}>{option}</option>
+                        })}
+                        </Field>
+                    </div> }
+                    { coinNames && coinSymbols &&
+                    <div>
+                        <Field name="coinName" component={renderSelectField} label="Coin Name" fullWidth variant='outlined'>
+                        { coinSymbols.map(option => {
+                            return <option key={coinNames[option].name} value={coinNames[option].name}>{coinNames[option].name}</option>
+                        })}
+                        </Field>
+                    </div> }
+                    <Divider classes={{root: classes.root}}/>
+                    <div>
+                        <Field name="type" component={renderRadioGroup}>
+                            <FormLabel component="legend">Transaction Type</FormLabel>
+                            <FormControlLabel 
+                                value="Buy"
+                                control={<Radio color="primary" />}
+                                label="Buy"
+                                labelPlacement="start"
+                            />
+                            <FormControlLabel 
+                                value="Sell"
+                                control={<Radio color="primary" />}
+                                label="Sell"
+                                labelPlacement="start"
+                            />
+                        </Field>
+                    </div>
+                    <Divider classes={{root: classes.root}}/>
+                    <div>
+                        <Field name="quantity" component={renderTextField} label="Quantity" fullWidth variant='outlined'/>
+                    </div>
+                    <div>
+                        <Field name="price_amount" component={renderTextField} label="Price" fullWidth variant='outlined'/>
+                    </div>
+                    <div>
+                        <Field name="price_currency" component={renderSelectField} label="Paid in" fullWidth variant='outlined'>
+                        { CURRENCIES.map(option => {
+                            return <option key={option} value={option}>{option}</option>
+                        })}
+                        </Field>
+                    </div>
+                    <div>
+                    <Button type="submit" align="center" variant="raised" color="primary" >
+                                Submit Transaction
+                    </Button>
+                    </div>
+                </form>
             </Drawer>
       </Fragment>
     );
 };
 
 let inputTradeForm = reduxForm({
-    form: 'inputTradeForm'
+    validate: validate,
+    form: 'inputTradeForm',
+    enableReinitialize: true
   })(InputDrawer)
 
 function mapStateToProps(state, {coinNames}) {
@@ -82,12 +118,10 @@ function mapStateToProps(state, {coinNames}) {
     return {
         coinName: (coinNames && getSymbol) ? coinNames[getSymbol].name : '',
         initialValues: state.transactions.activeTradeValues,
-        enableReinitialize: true
     };
 };
 
-let InitializeFromStateForm = connect(mapStateToProps, {enterTradeDetails})(inputTradeForm)
-//need to eventually add validation
+let InitializeFromStateForm = connect(mapStateToProps, {enterTradeDetails, change})(inputTradeForm)
 
-export default InitializeFromStateForm;
+export default withStyles(styles)(InitializeFromStateForm);
 
