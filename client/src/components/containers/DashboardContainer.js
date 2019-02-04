@@ -83,7 +83,7 @@ class CoinTabs extends Component {
                     handleClose={closeDrawer}
                     handleChange={this.handleFieldChange}
                     fields={TRANSACTION_FIELDS}
-                    dynamicOptions={coins ? coins.allSymbols : null}
+                    coinSymbols={coins ? coins.allSymbols : null}
                     coinNames={coins ? coins.bySymbol : null}
                     initialValues={transactions.activeTradeValues}
                     />
