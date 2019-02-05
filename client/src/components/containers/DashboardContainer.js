@@ -13,8 +13,8 @@ import TabContainer from '../utils/TabContainer';
 import TabWrapper from '../presentation/TabWrapper';
 import SimpleBarChart from '../charts/BarChart';
 import AddTrade from '../containers/AddTrade';
+import PositionWrapper from '../presentation/PositionWrapper';
 
-import { TRANSACTION_FIELDS } from '../../constants/Fields';
 import { COINS_TO_QUERY_FOR } from '../../constants/DropOptions';
 
 class CoinTabs extends Component {
@@ -32,15 +32,9 @@ class CoinTabs extends Component {
         this.setState({ value });
       };
 
-      handleCoinNumberChange = (event, value) => {
+    handleCoinNumberChange = (event, value) => {
         this.setState({coinsToShow: event.target.value});
     };
-
-    handleFieldChange = name => event => {
-        this.setState({
-          [name]: event.target.value,
-        });
-      };
 
     render() {
         const { value, coinsToShow } = this.state;
@@ -68,21 +62,20 @@ class CoinTabs extends Component {
                 {value === 1 &&
                     <TabContainer>
                         <TabWrapper type={'transactions'} data={transactions} ToShow={null}>
+                            <PositionWrapper data={transactions.tradeList}></PositionWrapper>
                             <SimpleBarChart data={transactions.byId}/>
                         </TabWrapper>
                     </TabContainer>}
                 {value === 2 &&
                     <TabContainer>
-                    <TabWrapper type={'transactions'} data={transactions} ToShow={null}/>
-                </TabContainer>
+                        <TabWrapper type={'transactions'} data={transactions} ToShow={null}/>
+                    </TabContainer>
                 }
                 <AddTrade />
                 <InputDrawer 
                     onSubmit={submitTrade}
                     isOpen={isOpen}
                     handleClose={closeDrawer}
-                    handleChange={this.handleFieldChange}
-                    fields={TRANSACTION_FIELDS}
                     coinSymbols={coins ? coins.allSymbols : null}
                     coinNames={coins ? coins.bySymbol : null}
                     initialValues={transactions.activeTradeValues}
