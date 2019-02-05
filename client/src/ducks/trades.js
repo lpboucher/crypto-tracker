@@ -97,6 +97,7 @@ export default function reducer(state = initialState, action) {
                 ...state,
                 byId: normalizedData.entities.transactions,
                 allIds: normalizedData.result,
+                tradeList: action.payload,
                 isLoading: false,
             };
         case UPDATE_TRADE_SUCCESS:
