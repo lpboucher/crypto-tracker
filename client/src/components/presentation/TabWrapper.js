@@ -12,8 +12,8 @@ const TabWrapper = ({data, type, toShow, children}) => {
                         {children}
                         <CoinList 
                             recordType={type}
-                            item={type === "transactions" ? data.byId : data.bySymbol}
-                            list={type === "transactions" ? data.allIds : data.allSymbols}
+                            item={type === "transactions" ? data.byId : data.byRank}
+                            list={type === "transactions" ? data.allIds : data.allRanks}
                             numberOfItems={toShow}/>
                     </Fragment>
                 ) : (
