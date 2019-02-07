@@ -38,6 +38,7 @@ let InputDrawer = ({
                     coinSymbols,
                     coinNames,
                     coinName,
+                    coinTickerCode,
                     change,
                     classes
                 }) => {
@@ -97,7 +98,7 @@ let InputDrawer = ({
                         </Field>
                     </div>
                     <div>
-                    <Button type="submit" align="center" variant="raised" color="primary" >
+                    <Button onClick={() => change('coinTickerCode', coinTickerCode)}type="submit" align="center" variant="raised" color="primary" >
                                 Submit Transaction
                     </Button>
                     </div>
@@ -117,6 +118,7 @@ function mapStateToProps(state, {coinNames}) {
     const getSymbol = selector(state, 'symbol')
     return {
         coinName: (coinNames && getSymbol) ? coinNames[getSymbol].name : '',
+        coinTickerCode: (coinNames && getSymbol) ? coinNames[getSymbol].id : '',
         initialValues: state.transactions.activeTradeValues,
     };
 };
