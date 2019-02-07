@@ -3,8 +3,10 @@ export const COIN_FIELDS = [
     { label: 'Symbol', numeric: false},
     { label: 'Name', numeric: false},
     { label: 'Circulating Supply', numeric: true},
-    { label: 'Price (EUR)', numeric: true},
+    { label: 'Price (BTC)', numeric: true},
+    { label: 'Price (ETH)', numeric: true},
     { label: 'Price (USD)', numeric: true},
+    { label: 'Market Cap (USD)', numeric: true},
     { label: '% change (24h)', numeric: true},
   ];
   
