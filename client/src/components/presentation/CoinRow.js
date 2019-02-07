@@ -10,9 +10,11 @@ const CoinRow = ({coin}) => {
             <TableCell>{coin.symbol}</TableCell>
             <TableCell>{coin.name}</TableCell>
             <TableCell numeric>{coin.circulating_supply}</TableCell>
-            <TableCell numeric>{coin.quotes.EUR ? coin.quotes.EUR.price : "-"}</TableCell>
+            <TableCell numeric>{coin.quotes.BTC.price}</TableCell>
+            <TableCell numeric>{coin.quotes.ETH.price}</TableCell>
             <TableCell numeric>{coin.quotes.USD.price}</TableCell>
-            <TableCell numeric>{coin.quotes.EUR ? coin.quotes.EUR.percent_change_24h : "-"}</TableCell>
+            <TableCell numeric>{coin.quotes.USD.market_cap}</TableCell>
+            <TableCell numeric>{coin.quotes.USD.percent_change_24h}</TableCell>
         </TableRow>
     );
 };
