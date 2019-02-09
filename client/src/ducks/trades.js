@@ -16,6 +16,19 @@ export const REMOVE_TRADE_FAILURE = 'trades/remove_trade_failure';
 export const UPDATE_ACTIVE_DETAILS = 'trades/update_active_details';
 export const ENTER_NEW_DETAILS = 'trades/enter_new_details';
 
+//Helper functions
+const fetchPrices = async (ticker) => {
+    const currencies = ['USD', 'BTC', 'ETH'];
+    const baseUrl = 'https://api.coinpaprika.com/v1/tickers';
+
+    const priceData = await axios.get(`${baseUrl}/${ticker}?quotes=${currencies.join()}`);
+
+    return [
+        {currency: 'USD', amount: priceData.data.quotes.USD.price},
+        {currency: 'ETH', amount: priceData.data.quotes.ETH.price},
+        {currency: 'BTC', amount: priceData.data.quotes.BTC.price},
+    ]
+}
 
 //Action Creators
 export const fetchTransactions = () => async dispatch => {
@@ -39,16 +52,24 @@ export const enterTradeDetails = (trade) => dispatch => {
 };
 
 export const submitTrade = (trade) => async dispatch => {
-    dispatch({ type: SUBMIT_TRADE_REQUEST })
+    dispatch({ type: SUBMIT_TRADE_REQUEST });
+
+
+    //NEED TO INCLUDE PRICES IN POST REQUEST TO API CALL AND ADD TO TRADE SCHEMA
+    const marketPrices = await fetchPrices(trade.coinTickerCode);
+    const tradePrices = marketPrices.map(price => {
+        return ({ ...price, amount: parseFloat(price.amount) * parseFloat(trade.price_amount ) })
+    })
+    const tradeData = {...trade, tradePrices: [...tradePrices]};
 
     let res;
 
     try {
         if(trade.id) { 
-            res = await axios.put(`/api/trade/update/${trade.id}`, trade);
+            res = await axios.put(`/api/trade/update/${trade.id}`, tradeData);
             dispatch({type: UPDATE_TRADE_SUCCESS, payload: res.data});
         } else {
-            res = await axios.post('/api/trade/new', trade);
+            res = await axios.post('/api/trade/new', tradeData);
             dispatch({type: NEW_TRADE_SUCCESS, payload: res.data});
         }
     } catch(err) {
