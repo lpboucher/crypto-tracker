@@ -5,27 +5,14 @@ const tradeSchema = new Schema({
     symbol: String,
     coinName: String,
     type: String,
-    price: {
-        amount: Number,
-        currency: {
-            type: String,
-            enum: ['EUR', 'USD', 'ETH', 'BTC']
-        }
-    },
-    /* {
-        EUR: {
-            type: Number
-        },
-        USD: {
-            type: Number
-        },
-        ETH: {
-            type: Number
-        },
-        BTC: {
-            type: Number
-        }
-    }, */
+    paid_in: String,
+    prices: [{
+            currency: {
+                type: String,
+                enum: ['USD', 'ETH', 'BTC']
+            },
+            amount: Number,
+        }],
     quantity: Number,
     _user: { type: Schema.Types.ObjectId, ref: 'User'},
 });
