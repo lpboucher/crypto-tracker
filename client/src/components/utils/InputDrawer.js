@@ -10,6 +10,7 @@ import { CURRENCIES } from '../../constants/DropOptions';
 import renderTextField from './forms/renderTextField';
 import renderSelectField from './forms/renderSelectField';
 import renderRadioGroup from './forms/renderRadioGroup';
+import renderDatePicker from './forms/renderDatePicker';
 
 import Typography from '@material-ui/core/Typography';
 import Drawer from '@material-ui/core/Drawer';
@@ -49,6 +50,9 @@ let InputDrawer = ({
                     Input new trade
                 </Typography>
                 <form onSubmit={handleSubmit}>
+                    <div>
+                        <Field name="date" component={renderDatePicker} label="Date" fullWidth variant='outlined'/>
+                    </div>
                     { coinSymbols &&
                     <div>
                         <Field name="symbol" component={renderSelectField} onFocus={() => change('coinName', coinName)}label="Symbol" fullWidth variant='outlined'>
