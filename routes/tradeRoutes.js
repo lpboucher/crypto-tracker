@@ -4,9 +4,10 @@ const Trade = mongoose.model('trades');
 
 module.exports = (app) => {
     app.post('/api/trade/new', async (req, res) => {
-        const { symbol, coinName, type, quantity, price_currency, tradePrices } = req.body;
+        const { date, symbol, coinName, type, quantity, price_currency, tradePrices } = req.body;
 
         const newTrade = new Trade({
+            date: date,
             symbol: symbol,
             coinName: coinName,
             type: type,
@@ -27,7 +28,21 @@ module.exports = (app) => {
     })
 
     app.put('/api/trade/update/:id', async (req, res) => {
-        await Trade.findByIdAndUpdate(req.params.id, {$set: req.body}, {new: true}, (err, update) => {
+        const { date, symbol, coinName, type, quantity, price_currency, tradePrices } = req.body;
+
+        const updateData = {
+            date: date,
+            symbol: symbol,
+            coinName: coinName,
+            type: type,
+            paid_in: price_currency,
+            prices: [
+                ...tradePrices
+            ],
+            quantity: quantity,
+        };
+
+        await Trade.findByIdAndUpdate(req.params.id, {$set: updateData}, {new: true}, (err, update) => {
             if(err) {
                 console.log(err);
                 return res.sendStatus(501);
