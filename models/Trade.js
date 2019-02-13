@@ -8,13 +8,10 @@ const tradeSchema = new Schema({
     type: String,
     paid_in: String,
     price_paid: Number,
-    prices: [{
-            currency: {
-                type: String,
-                enum: ['USD', 'ETH', 'BTC']
-            },
-            amount: Number,
-        }],
+    prices: {
+            USD: Number,
+            BTC: Number,
+        },
     quantity: Number,
     _user: { type: Schema.Types.ObjectId, ref: 'User'},
 });
