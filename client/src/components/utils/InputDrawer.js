@@ -118,8 +118,10 @@ let inputTradeForm = reduxForm({
     enableReinitialize: true
   })(InputDrawer)
 
+
+//NEED TO ADD AUTOMATIC FILLING OF PRICE BASED ON DATA, SYMBOL
 function mapStateToProps(state, {coinNames}) {
-    const getSymbol = selector(state, 'symbol')
+    const getSymbol = selector(state, 'symbol');
     return {
         coinName: (coinNames && getSymbol) ? coinNames[getSymbol].name : '',
         coinTickerCode: (coinNames && getSymbol) ? coinNames[getSymbol].id : '',
