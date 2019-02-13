@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { schema, normalize } from 'normalizr';
+import { reset } from 'redux-form';
 
 
 //Action Types
@@ -77,6 +78,7 @@ export const submitTrade = (trade) => async dispatch => {
     } catch(err) {
         dispatch({type: SUBMIT_TRADE_FAILURE});
     }
+    dispatch(reset('inputTradeForm'))
 };
 
 export const removeTrade = (id) => async dispatch => {
@@ -139,7 +141,7 @@ export default function reducer(state = initialState, action) {
                         ...action.payload
                     }
                 },
-                isLoading: false
+                isLoading: false,
             }
         case NEW_TRADE_SUCCESS:
             return {
@@ -149,7 +151,7 @@ export default function reducer(state = initialState, action) {
                     ...state.byId,
                     [action.payload.id]: action.payload
                 },
-                isLoading: false
+                isLoading: false,
             }
         case REMOVE_TRADE_SUCCESS:
             const removedIds = state.allIds.filter(id => {
