@@ -20,16 +20,16 @@ const styles = {
     },
   };
 
-const CoinList = ({recordType, item, list, numberOfItems, classes}) => {
+const CoinList = ({recordType, item, list, classes, ...filters}) => {
     return (
         <Paper className={classes.root}>
             <Table className={classes.table}>
                 <CoinTableHead tableType={recordType} />
                 <TableBody>
-                { list.slice(0, numberOfItems).map((currentItem, index) => (
+                { list.slice(0, filters.toShow).map((currentItem, index) => (
                     <Fragment key={item[currentItem].id}>
                     {recordType === "transactions" ? (
-                            <TransactionRow index={index} key={item[currentItem]._id} trade={item[currentItem]}>
+                            <TransactionRow index={index} key={item[currentItem]._id} trade={item[currentItem]} displayIn={filters.displayIn}>
                                 <UpdateTrade trade={item[currentItem]}/>
                                 <RemoveTrade tradeId={item[currentItem]._id} />
                             </TransactionRow>

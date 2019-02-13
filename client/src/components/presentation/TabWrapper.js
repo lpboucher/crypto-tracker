@@ -4,7 +4,7 @@ import CoinList from './CoinList';
 
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-const TabWrapper = ({data, type, toShow, children}) => {
+const TabWrapper = ({data, type, children, ...filters}) => {
     return (
         <Fragment>
             {data ? (
@@ -14,7 +14,7 @@ const TabWrapper = ({data, type, toShow, children}) => {
                             recordType={type}
                             item={type === "transactions" ? data.byId : data.byRank}
                             list={type === "transactions" ? data.allIds : data.allRanks}
-                            numberOfItems={toShow}/>
+                            {...filters} />
                     </Fragment>
                 ) : (
                     // think about changing this div to a more user-friendly interaction

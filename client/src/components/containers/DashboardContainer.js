@@ -15,12 +15,13 @@ import SimpleBarChart from '../charts/BarChart';
 import AddTrade from '../containers/AddTrade';
 import PositionWrapper from '../presentation/PositionWrapper';
 
-import { COINS_TO_QUERY_FOR } from '../../constants/DropOptions';
+import { COINS_TO_QUERY_FOR, DISPLAY_CURRS } from '../../constants/DropOptions';
 
 class CoinTabs extends Component {
     state = {
         value: 0,
-        coinsToShow: 20,
+        numberToShow: 20,
+        displayCurr: 'as paid',
     };
 
     componentDidMount() {
@@ -32,12 +33,12 @@ class CoinTabs extends Component {
         this.setState({ value });
       };
 
-    handleCoinNumberChange = (event, value) => {
-        this.setState({coinsToShow: event.target.value});
+    handleOptionChange = (event) => {
+        this.setState({[event.target.name]: event.target.value});
     };
 
     render() {
-        const { value, coinsToShow } = this.state;
+        const { value, numberToShow, displayCurr } = this.state;
         const { coins, transactions, isOpen, submitTrade, closeDrawer } = this.props;
         return (
             <Fragment>
@@ -48,12 +49,13 @@ class CoinTabs extends Component {
                 </Tabs>
                 {value === 0 && 
                     <TabContainer>
-                        <TabWrapper type={'coins'} data={coins} toShow={coinsToShow}>
+                        <TabWrapper type={'coins'} data={coins} toShow={numberToShow}>
                             <OptionFilter
-                                id={"coin-count-selection"}
-                                label={"# of coins to show"}
-                                value={coinsToShow}
-                                optionChange={this.handleCoinNumberChange}
+                                id="coin-count-selection"
+                                label="coins to show"
+                                value={numberToShow}
+                                name="numberToShow"
+                                optionChange={this.handleOptionChange}
                                 options={COINS_TO_QUERY_FOR}
                             />
                         </TabWrapper>
@@ -68,7 +70,24 @@ class CoinTabs extends Component {
                     </TabContainer>}
                 {value === 2 &&
                     <TabContainer>
-                        <TabWrapper type={'transactions'} data={transactions} ToShow={null}/>
+                        <TabWrapper type={'transactions'} data={transactions} ToShow={numberToShow} displayIn={displayCurr}>
+                        <OptionFilter
+                                id="display-currency-selection"
+                                label="Display in"
+                                value={displayCurr}
+                                name='displayCurr'
+                                optionChange={this.handleOptionChange}
+                                options={DISPLAY_CURRS}
+                            />
+                            <OptionFilter
+                                id="count-selection"
+                                label="trades to show"
+                                value={numberToShow}
+                                name="numberToShow"
+                                optionChange={this.handleOptionChange}
+                                options={COINS_TO_QUERY_FOR}
+                            />
+                        </TabWrapper>
                     </TabContainer>
                 }
                 <AddTrade />
