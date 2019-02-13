@@ -17,17 +17,22 @@ export const UPDATE_ACTIVE_DETAILS = 'trades/update_active_details';
 export const ENTER_NEW_DETAILS = 'trades/enter_new_details';
 
 //Helper functions
-const fetchPrices = async (ticker) => {
-    const currencies = ['USD', 'BTC', 'ETH'];
+const fetchPrices = async (ticker, date, current_currency, current_price) => {
     const baseUrl = 'https://api.coinpaprika.com/v1/tickers';
 
-    const priceData = await axios.get(`${baseUrl}/${ticker}?quotes=${currencies.join()}`);
+    const queryCurr = ['USD', 'BTC'].filter(currency => currency !== current_currency);
 
-    return [
-        {currency: 'USD', amount: priceData.data.quotes.USD.price},
-        {currency: 'ETH', amount: priceData.data.quotes.ETH.price},
-        {currency: 'BTC', amount: priceData.data.quotes.BTC.price},
-    ]
+    const endDate = new Date(date);
+    endDate.setDate(endDate.getDate() + 1);
+
+    const priceData = await axios.get(`${baseUrl}/${ticker}/historical?quote=${queryCurr[0]}&start=${date}&end=${endDate.toISOString('T').slice(0,10)}&interval=24h`);
+
+    return {
+            [current_currency]: parseFloat(current_price),
+            [queryCurr[0]]: parseFloat(priceData.data[0].price),
+        }
+
+        //NEED TO ALSO QUERY ETH PRICE AND PERFORM CONVERSION BASED ON QUERIED PRICES
 }
 
 //Action Creators
@@ -55,12 +60,9 @@ export const submitTrade = (trade) => async dispatch => {
     dispatch({ type: SUBMIT_TRADE_REQUEST });
 
 
-    //NEED TO INCLUDE PRICES IN POST REQUEST TO API CALL AND ADD TO TRADE SCHEMA
-    const marketPrices = await fetchPrices(trade.coinTickerCode);
-    const tradePrices = marketPrices.map(price => {
-        return ({ ...price, amount: parseFloat(price.amount) * parseFloat(trade.price_amount ) })
-    })
-    const tradeData = {...trade, tradePrices: [...tradePrices]};
+    const marketPrices = await fetchPrices(trade.coinTickerCode, trade.date, trade.price_currency, trade.price_amount);
+
+    const tradeData = {...trade, tradePrices: marketPrices};
 
     let res;
 
@@ -170,16 +172,18 @@ export default function reducer(state = initialState, action) {
                 isLoading: false,
             };
         case UPDATE_ACTIVE_DETAILS:
+            const{ _id, date, symbol, coinName, type, quantity, paid_in, prices} = action.payload;
             return {
                 ...state,
                 activeTradeValues: {
-                    id: action.payload._id,
-                    symbol: action.payload.symbol,
-                    coinName: action.payload.coinName,
-                    type: action.payload.type,
-                    quantity: action.payload.quantity,
-                    price_amount: action.payload.price.amount,
-                    price_currency: action.payload.price.currency,
+                    id: _id,
+                    date: date.slice(0,10),
+                    symbol,
+                    coinName,
+                    type,
+                    quantity,
+                    price_amount: prices[paid_in],
+                    price_currency: paid_in,
                 }
             }
         case ENTER_NEW_DETAILS:
