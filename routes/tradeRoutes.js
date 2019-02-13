@@ -12,9 +12,7 @@ module.exports = (app) => {
             coinName: coinName,
             type: type,
             paid_in: price_currency,
-            prices: [
-                ...tradePrices
-            ],
+            prices: tradePrices,
             quantity: quantity,
             _user: req.user.id,
         });
@@ -36,9 +34,7 @@ module.exports = (app) => {
             coinName: coinName,
             type: type,
             paid_in: price_currency,
-            prices: [
-                ...tradePrices
-            ],
+            prices: tradePrices,
             quantity: quantity,
         };
 
