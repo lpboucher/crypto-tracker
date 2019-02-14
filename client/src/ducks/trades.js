@@ -197,3 +197,8 @@ export default function reducer(state = initialState, action) {
             return state;
     }
 }
+
+//Selectors
+export const getTradesById = (state) => {
+    return state.transactions.byId;
+  }
