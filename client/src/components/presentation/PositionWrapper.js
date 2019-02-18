@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import _ from 'lodash';
-import CoinList from './CoinList';
+import CoinList from '../Tables/CoinList';
 
 const PositionWrapper = ({data}) => {
     var positions = _(data)

@@ -4,13 +4,13 @@ import { reduxForm, Field, formValueSelector, change } from 'redux-form';
 import { withStyles } from '@material-ui/core/styles';
 
 import { enterTradeDetails } from '../../ducks/trades';
-import validate from './validations/tradeValidate';
+import validate from '../utils/validations/tradeValidate';
 import { CURRENCIES } from '../../constants/DropOptions';
 
-import renderTextField from './forms/renderTextField';
-import renderSelectField from './forms/renderSelectField';
-import renderRadioGroup from './forms/renderRadioGroup';
-import renderDatePicker from './forms/renderDatePicker';
+import renderTextField from '../utils/forms/renderTextField';
+import renderSelectField from '../utils/forms/renderSelectField';
+import renderRadioGroup from '../utils/forms/renderRadioGroup';
+import renderDatePicker from '../utils/forms/renderDatePicker';
 
 import Typography from '@material-ui/core/Typography';
 import Drawer from '@material-ui/core/Drawer';

@@ -7,8 +7,8 @@ import TableBody from '@material-ui/core/TableBody';
 import CoinTableHead from './CoinTableHead';
 import CoinRow from './CoinRow';
 import TransactionRow from './TransactionRow';
-import RemoveTrade from '../containers/RemoveTrade';
-import UpdateTrade from '../containers/UpdateTrade';
+import RemoveTrade from '../TradeForm/RemoveTrade';
+import UpdateTrade from '../TradeForm/UpdateTrade';
 
 const styles = {
     root: {
