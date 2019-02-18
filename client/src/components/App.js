@@ -5,7 +5,7 @@ import { fetchUser } from '../ducks/auth';
 
 import Header from './containers/Header';
 import Login from './presentation/Login';
-import DashboardContainer from './containers/DashboardContainer';
+import DashboardContainer from './Dashboard/DashboardContainer';
 
 class App extends Component {
 
