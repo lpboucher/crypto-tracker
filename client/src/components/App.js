@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import { BrowserRouter, Route } from 'react-router-dom';
 import { fetchUser } from '../ducks/auth';
 
-import Header from './containers/Header';
-import Login from './presentation/Login';
+import Header from './Main/Header';
+import Login from './Main/Login';
 import DashboardContainer from './Dashboard/DashboardContainer';
 
 class App extends Component {

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import TabWrapper from '../Dashboard/TabWrapper';
-import PositionWrapper from '../presentation/PositionWrapper';
+import PositionWrapper from './PositionWrapper';
 import SimpleBarChart from '../charts/BarChart';
 
 const OverviewComponent = ({ trades }) => {
