@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchTransactions } from '../../ducks/trades';
 import TransactionComponent from './TransactionComponent';
+import withLoading from '../utils/hocs/withLoading';
+
+const LoadingTrades = withLoading(TransactionComponent);
 
 class TransactionContainer extends Component {
     state = {
@@ -21,7 +24,7 @@ class TransactionContainer extends Component {
         const { tradesToShow, displayIn } = this.state;
         const { transactions } = this.props;
         return (
-        <TransactionComponent
+        <LoadingTrades
             trades={transactions}
             displayIn={displayIn}
             tradesToShow={tradesToShow}

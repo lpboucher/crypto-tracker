@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchCoins } from '../../ducks/coins';
 import MarketComponent from './MarketComponent';
+import withLoading from '../utils/hocs/withLoading';
+
+const LoadingMarket = withLoading(MarketComponent);
 
 class MarketContainer extends Component {
     state = {
@@ -20,7 +23,7 @@ class MarketContainer extends Component {
         const { coinsToShow } = this.state;
         const { coins } = this.props;
         return (
-        <MarketComponent
+        <LoadingMarket
             coinsToShow={coinsToShow}
             coins={coins}
             handleOptionChange={this.handleOptionChange}

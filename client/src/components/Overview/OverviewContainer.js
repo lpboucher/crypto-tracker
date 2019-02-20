@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchTransactions } from '../../ducks/trades';
 import OverviewComponent from './OverviewComponent';
+import withLoading from '../utils/hocs/withLoading';
+
+const LoadingOverview = withLoading(OverviewComponent);
 
 class OverviewContainer extends Component {
     componentDidMount() {
@@ -9,10 +12,10 @@ class OverviewContainer extends Component {
       };
 
     render() {
-        const { trades } = this.props;
+        const { transactions } = this.props;
         return (
-        <OverviewComponent
-            trades={trades}
+        <LoadingOverview
+            trades={transactions}
         />
         );
     }
