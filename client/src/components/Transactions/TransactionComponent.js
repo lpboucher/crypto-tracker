@@ -1,14 +1,18 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 
-import TabWrapper from '../Dashboard/TabWrapper';
 import OptionFilter from '../utils/filters/OptionFilter';
+import CoinList from '../Tables/CoinList';
+import TransactionRow from '../Tables/TransactionRow';
+import RemoveTrade from '../TradeForm/RemoveTrade';
+import UpdateTrade from '../TradeForm/UpdateTrade';
 
 import { DISPLAY_CURRS, COINS_TO_QUERY_FOR} from '../../constants/DropOptions'
 
 const TransactionComponent = ({ trades, tradesToShow, displayIn, handleOptionChange }) => {
+    const { byId, allIds } = trades;
     return (
-        <TabWrapper type={'transactions'} data={trades} ToShow={tradesToShow} displayIn={displayIn}>
-        <OptionFilter
+        <Fragment>
+            <OptionFilter
                 id="display-currency-selection"
                 label="Display in"
                 value={displayIn}
@@ -24,7 +28,15 @@ const TransactionComponent = ({ trades, tradesToShow, displayIn, handleOptionCha
                 optionChange={handleOptionChange}
                 options={COINS_TO_QUERY_FOR}
             />
-        </TabWrapper>
+            <CoinList recordType='transactions'>
+                { allIds.slice(0, tradesToShow).map((currentItem, index) => (
+                    <TransactionRow index={index} key={byId[currentItem]._id} trade={byId[currentItem]} displayIn={displayIn}>
+                        <UpdateTrade trade={byId[currentItem]}/>
+                        <RemoveTrade tradeId={byId[currentItem]._id} />
+                    </TransactionRow>
+                )) }
+            </CoinList>
+        </Fragment>
     );
 };
 
