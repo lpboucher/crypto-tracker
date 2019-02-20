@@ -104,18 +104,10 @@ const initialState = {
     byId: {},
     allIds: [],
     activeTradeValues: {},
-    isLoading: false
   };
 
 export default function reducer(state = initialState, action) {
     switch(action.type) {
-        case FETCH_TRADES_REQUEST:
-        case SUBMIT_TRADE_REQUEST:
-        case REMOVE_TRADE_REQUEST:
-            return {
-                ...state,
-                isLoading: true,
-            };
         case FETCH_TRADES_SUCCESS:
             const normalizedData = normalize(action.payload, transactionListSchema);
             return {
@@ -123,7 +115,6 @@ export default function reducer(state = initialState, action) {
                 byId: normalizedData.entities.transactions,
                 allIds: normalizedData.result,
                 tradeList: action.payload,
-                isLoading: false,
             };
         case UPDATE_TRADE_SUCCESS:
             const updatedIds = state.allIds.map(item => {
@@ -141,7 +132,6 @@ export default function reducer(state = initialState, action) {
                         ...action.payload
                     }
                 },
-                isLoading: false,
             }
         case NEW_TRADE_SUCCESS:
             return {
@@ -151,7 +141,6 @@ export default function reducer(state = initialState, action) {
                     ...state.byId,
                     [action.payload.id]: action.payload
                 },
-                isLoading: false,
             }
         case REMOVE_TRADE_SUCCESS:
             const removedIds = state.allIds.filter(id => {
@@ -163,7 +152,6 @@ export default function reducer(state = initialState, action) {
                     ...state,
                     allIds: removedIds,
                     byId: state.byId,
-                    isLoading: false
             };
         //need to account for errors in fetching trades, return error message
         case FETCH_TRADES_FAILURE:
@@ -171,7 +159,6 @@ export default function reducer(state = initialState, action) {
         case REMOVE_TRADE_FAILURE:
             return {
                 ...state,
-                isLoading: false,
             };
         case UPDATE_ACTIVE_DETAILS:
             const{ _id, date, symbol, coinName, type, quantity, paid_in, prices} = action.payload;

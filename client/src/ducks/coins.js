@@ -4,20 +4,29 @@ import { schema, normalize } from 'normalizr';
 
 
 //Action Types
-export const FETCH_COINS = 'coins/fetch_coins';
+export const FETCH_COINS_REQUEST = 'coins/fetch_coins_request';
+export const FETCH_COINS_SUCCESS = 'coins/fetch_coins_success';
+export const FETCH_COINS_FAILURE = 'coins/fetch_coins_failure';
 
 
 //Action Creators
 export const fetchCoins = () => async dispatch => {
+    dispatch({ type: FETCH_COINS_REQUEST });
+
     const baseTickerUrl = 'https://api.coinpaprika.com/v1/tickers';
     const currencies = ['USD', 'BTC', 'ETH'];
-    const res = await axios.get(`${baseTickerUrl}?quotes=${currencies.join()}`);
-    
-    const filteredRes = _.filter(res.data, function(o) { 
-        return o.rank <= 100; 
-    });
-    
-    dispatch({type: FETCH_COINS, payload: filteredRes});
+
+    try {
+        const res = await axios.get(`${baseTickerUrl}?quotes=${currencies.join()}`);
+
+        const filteredRes = _.filter(res.data, function(o) { 
+            return o.rank <= 100; 
+        });
+        
+        dispatch({ type: FETCH_COINS_SUCCESS, payload: filteredRes });
+    } catch(err) {
+        dispatch({ type: FETCH_COINS_FAILURE});
+    }
 };
 
 //Reducer
@@ -31,7 +40,7 @@ const initialState = {
 
 export default function reducer(state = initialState, action) {
     switch(action.type) {
-        case FETCH_COINS:
+        case FETCH_COINS_SUCCESS:
             const normalizedSymbols = normalize(action.payload, coinListSymbolSchema);
             const normalizedRanks = normalize(action.payload, coinListRankSchema);
             return {
