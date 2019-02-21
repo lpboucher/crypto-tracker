@@ -11,7 +11,6 @@ export const COIN_FIELDS = [
   ];
   
 export const TRANSACTION_FIELDS = [
-    { label: 'Rank', numeric: true},
     { label: 'Date', numeric: false},
     { label: 'Symbol', numeric: false},
     { label: 'Name', numeric: false},

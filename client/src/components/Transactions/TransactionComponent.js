@@ -29,8 +29,8 @@ const TransactionComponent = ({ trades, tradesToShow, displayIn, handleOptionCha
                 options={COINS_TO_QUERY_FOR}
             />
             <CoinList recordType='transactions'>
-                { allIds.slice(0, tradesToShow).map((currentItem, index) => (
-                    <TransactionRow index={index} key={byId[currentItem]._id} trade={byId[currentItem]} displayIn={displayIn}>
+                { allIds.slice(0, tradesToShow).map(currentItem => (
+                    <TransactionRow key={byId[currentItem]._id} trade={byId[currentItem]} displayIn={displayIn}>
                         <UpdateTrade trade={byId[currentItem]}/>
                         <RemoveTrade tradeId={byId[currentItem]._id} />
                     </TransactionRow>

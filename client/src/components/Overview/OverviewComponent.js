@@ -14,8 +14,8 @@ const OverviewComponent = ({ trades }) => {
             <PositionWrapper data={tradeList}></PositionWrapper>
             <SimpleBarChart data={byId}/>
             <CoinList recordType='transactions'>
-                { allIds.map((currentItem, index) => (
-                    <TransactionRow index={index} key={byId[currentItem]._id} trade={byId[currentItem]} displayIn="as paid">
+                { allIds.map(currentItem => (
+                    <TransactionRow key={byId[currentItem]._id} trade={byId[currentItem]} displayIn="as paid">
                         <UpdateTrade trade={byId[currentItem]}/>
                         <RemoveTrade tradeId={byId[currentItem]._id} />
                     </TransactionRow>
