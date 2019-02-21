@@ -2,6 +2,7 @@ import axios from 'axios';
 import _ from 'lodash';
 import { schema, normalize } from 'normalizr';
 
+import { getNumberOfItems, getSortingKey } from './filters';
 
 //Action Types
 export const FETCH_COINS_REQUEST = 'coins/fetch_coins_request';
@@ -68,32 +69,20 @@ export const getCoins = (state) => {
     return state.coins;
   }
 
-export const getCoinsBySymbol = (state) => {
+export const getCoinsByKey = (state) => {
+    const key = getSortingKey(state);
     const coins = getCoins(state);
     return coins.marketData.reduce((obj, item) => {
-        obj[item.symbol] = item;
+        obj[item[key]] = item;
      return obj;
    }, {})
 }
 
-export const getAllCoinSymbols = (state) => {
+export const getCoinListByKey = (state) => {
+    const key = getSortingKey(state);
     const coins = getCoins(state);
+    //const n = getNumberOfItems(state);
     return coins.marketData.map(coin => {
-        return coin.symbol
-    })
-}
-
-export const getCoinsByRank = (state) => {
-    const coins = getCoins(state);
-    return coins.marketData.reduce((obj, item) => {
-        obj[item.rank] = item;
-     return obj;
-   }, {})
-}
-
-export const getAllCoinRanks = (state) => {
-    const coins = getCoins(state);
-    return coins.marketData.map(coin => {
-        return coin.rank
+        return coin[key]
     })
 }
