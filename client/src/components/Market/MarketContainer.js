@@ -1,32 +1,25 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchCoins } from '../../ducks/coins';
+import { fetchCoins, getCoinsByKey, getCoinListByKey } from '../../ducks/coins';
+import { updateNumberItems } from '../../ducks/filters';
 import MarketComponent from './MarketComponent';
 import withLoading from '../utils/hocs/withLoading';
 
 const LoadingMarket = withLoading(MarketComponent);
 
 class MarketContainer extends Component {
-    state = {
-        coinsToShow: 20,
-    };
 
     componentDidMount() {
         this.props.fetchCoins();
       };
 
-    handleOptionChange = (event) => {
-        this.setState({[event.target.name]: event.target.value});
-    };
-
     render() {
-        const { coinsToShow } = this.state;
-        const { coins } = this.props;
+        const { coins, itemsToShow, updateNumberItems } = this.props;
         return (
         <LoadingMarket
-            coinsToShow={coinsToShow}
+            coinsToShow={itemsToShow}
             coins={coins}
-            handleOptionChange={this.handleOptionChange}
+            handleOptionChange={updateNumberItems}
         />
         );
     }
@@ -35,12 +28,20 @@ class MarketContainer extends Component {
 function mapStateToProps(state) {
     return { 
         coins: state.coins,
+        coinSplit: {
+            byKey: getCoinsByKey(state),
+            allKeys: getCoinListByKey(state),
+        },
+        itemsToShow: state.filters.itemsToShow,
+        //bk: getCoinsByKey(state, "rank"),
+        //lk: getCoinListByKey(state, "symbol")
     };
 };
 
 function mapDispatchToProps(dispatch) {
     return {
         fetchCoins: () => dispatch(fetchCoins()),
+        updateNumberItems: (items) => dispatch(updateNumberItems(items))
     };
 }
 
