@@ -13,20 +13,20 @@ const TransactionComponent = ({ trades, tradesToShow, displayIn, handleOptionCha
     return (
         <Fragment>
             <OptionFilter
-                id="display-currency-selection"
-                label="Display in"
-                value={displayIn}
-                name='displayIn'
-                optionChange={handleOptionChange}
-                options={DISPLAY_CURRS}
-            />
-            <OptionFilter
                 id="count-selection"
                 label="trades to show"
                 value={tradesToShow}
                 name="itemsToShow"
                 optionChange={handleOptionChange}
                 options={COINS_TO_QUERY_FOR}
+            />
+            <OptionFilter
+                id="display-currency-selection"
+                label="Display in"
+                value={displayIn}
+                name='displayIn'
+                optionChange={handleOptionChange}
+                options={DISPLAY_CURRS}
             />
             <CoinList recordType='transactions'>
                 { allIds.slice(0, tradesToShow).map(currentItem => (

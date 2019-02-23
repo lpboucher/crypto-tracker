@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchCoins, getCoinsByKey, getCoinListByKey } from '../../ducks/coins';
-import { updateFilterOption } from '../../ducks/filters';
+import { updateFilterOption, getNumberOfItems, getSortingKey } from '../../ducks/filters';
 import MarketComponent from './MarketComponent';
 import withLoading from '../utils/hocs/withLoading';
 
@@ -14,10 +14,11 @@ class MarketContainer extends Component {
       };
 
     render() {
-        const { coins, itemsToShow, updateFilterOption } = this.props;
+        const { coins, updateFilterOption, itemsToShow, sortBy } = this.props;
         return (
         <LoadingMarket
             coinsToShow={itemsToShow}
+            sortCoinsBY={sortBy}
             coins={coins}
             handleOptionChange={updateFilterOption}
         />
@@ -27,14 +28,12 @@ class MarketContainer extends Component {
 
 function mapStateToProps(state) {
     return { 
-        coins: state.coins,
-        coinSplit: {
+        coins: {
             byKey: getCoinsByKey(state),
             allKeys: getCoinListByKey(state),
         },
-        itemsToShow: state.filters.itemsToShow,
-        //bk: getCoinsByKey(state, "rank"),
-        //lk: getCoinListByKey(state, "symbol")
+        itemsToShow: getNumberOfItems(state),
+        sortBy: getSortingKey(state),
     };
 };
 
