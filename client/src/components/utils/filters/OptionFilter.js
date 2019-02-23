@@ -12,7 +12,7 @@ const OptionDropdown = ({ input, id, name, label, value, optionChange, options }
                     select
                     label={label}
                     value={value}
-                    onChange={(e) => optionChange(e.target.value)}
+                    onChange={(e) => optionChange(e.target.value, e.target.name)}
                     SelectProps={{
                         native: true,
                         MenuProps: {

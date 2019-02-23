@@ -1,31 +1,22 @@
 //Action Types
-export const UPDATE_NUMBER_OF_ITEMS = 'filters/update_number_of_items';
-export const UPDATE_DISPLAY_CURRENCY = 'filters/update_display_currency';
+export const UPDATE_FILTER = 'filters/update_filter_option';
 
 //Action Creators
-export const updateNumberItems = (itemsToShow) => ({
-    type: UPDATE_NUMBER_OF_ITEMS,
-    payload: itemsToShow
-});
-
-export const updateDisplayCurr = (currency) => ({
-    type: UPDATE_DISPLAY_CURRENCY,
-    payload: currency
-});
+export const updateFilterOption = (newOption, filterName) => dispatch => {
+    dispatch({type: UPDATE_FILTER, payload: {option: newOption, filter: filterName}})
+}
 
 //Reducer
 const initialState = {
     itemsToShow: 20,
-    displayCurr: 'as paid',
+    displayIn: 'as paid',
     sortBy: 'rank'
   };
 
-  export default function reducer(state = initialState, action) {
+export default function reducer(state = initialState, action) {
     switch(action.type) {
-        case UPDATE_NUMBER_OF_ITEMS:
-            return { ...state, itemsToShow: action.payload };
-        case UPDATE_DISPLAY_CURRENCY:
-            return { ...state, displayCurr: action.payload };
+        case UPDATE_FILTER:
+            return { ...state, [action.payload.filter]: action.payload.option}
         default:
             return state;
     }
