@@ -27,7 +27,11 @@ export const getNumberOfItems = (state) => {
     return state.filters.itemsToShow;
   }
 
+export const getDisplayCurrency = (state) => {
+    return state.filters.displayIn;
+}
+
 export const getSortingKey = (state) => {
-    return state.filters.sortBy
+    return state.filters.sortBy;
 }
 // ADD SELECTOR TO GET THE CURRENT DISPLAY KEY
