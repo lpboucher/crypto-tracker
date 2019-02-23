@@ -14,7 +14,7 @@ const MarketComponent = ({ coins, coinsToShow, handleOptionChange }) => {
                 id="coin-count-selection"
                 label="coins to show"
                 value={coinsToShow}
-                name="coinsToShow"
+                name="itemsToShow"
                 optionChange={handleOptionChange}
                 options={COINS_TO_QUERY_FOR}
             />

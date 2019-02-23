@@ -1,34 +1,26 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchTransactions } from '../../ducks/trades';
+import { updateFilterOption } from '../../ducks/filters';
 import TransactionComponent from './TransactionComponent';
 import withLoading from '../utils/hocs/withLoading';
 
 const LoadingTrades = withLoading(TransactionComponent);
 
 class TransactionContainer extends Component {
-    state = {
-        tradesToShow: 20,
-        displayIn: 'as paid',
-    };
 
     componentDidMount() {
         this.props.fetchTransactions();
       };
 
-    handleOptionChange = (event) => {
-        this.setState({[event.target.name]: event.target.value});
-    };
-
     render() {
-        const { tradesToShow, displayIn } = this.state;
-        const { transactions } = this.props;
+        const { transactions, itemsToShow, updateFilterOption, displayIn } = this.props;
         return (
         <LoadingTrades
             trades={transactions}
             displayIn={displayIn}
-            tradesToShow={tradesToShow}
-            handleOptionChange={this.handleOptionChange}
+            tradesToShow={itemsToShow}
+            handleOptionChange={updateFilterOption}
         />
         );
     }
@@ -37,12 +29,15 @@ class TransactionContainer extends Component {
 function mapStateToProps(state) {
     return { 
         transactions: state.transactions,
+        itemsToShow: state.filters.itemsToShow,
+        displayIn: state.filters.displayIn
     };
 };
 
 function mapDispatchToProps(dispatch) {
     return {
         fetchTransactions: () => dispatch(fetchTransactions()),
+        updateFilterOption: (option, filter) => dispatch(updateFilterOption(option, filter))
     };
 }
 

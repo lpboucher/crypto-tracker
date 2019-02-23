@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchCoins, getCoinsByKey, getCoinListByKey } from '../../ducks/coins';
-import { updateNumberItems } from '../../ducks/filters';
+import { updateFilterOption } from '../../ducks/filters';
 import MarketComponent from './MarketComponent';
 import withLoading from '../utils/hocs/withLoading';
 
@@ -14,12 +14,12 @@ class MarketContainer extends Component {
       };
 
     render() {
-        const { coins, itemsToShow, updateNumberItems } = this.props;
+        const { coins, itemsToShow, updateFilterOption } = this.props;
         return (
         <LoadingMarket
             coinsToShow={itemsToShow}
             coins={coins}
-            handleOptionChange={updateNumberItems}
+            handleOptionChange={updateFilterOption}
         />
         );
     }
@@ -41,7 +41,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         fetchCoins: () => dispatch(fetchCoins()),
-        updateNumberItems: (items) => dispatch(updateNumberItems(items))
+        updateFilterOption: (option, filter) => dispatch(updateFilterOption(option, filter))
     };
 }
 

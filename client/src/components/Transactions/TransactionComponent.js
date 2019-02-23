@@ -24,7 +24,7 @@ const TransactionComponent = ({ trades, tradesToShow, displayIn, handleOptionCha
                 id="count-selection"
                 label="trades to show"
                 value={tradesToShow}
-                name="tradesToShow"
+                name="itemsToShow"
                 optionChange={handleOptionChange}
                 options={COINS_TO_QUERY_FOR}
             />
