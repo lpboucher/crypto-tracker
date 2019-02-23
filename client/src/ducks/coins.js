@@ -1,6 +1,5 @@
 import axios from 'axios';
 import _ from 'lodash';
-import { schema, normalize } from 'normalizr';
 
 import { getNumberOfItems, getSortingKey } from './filters';
 
@@ -8,7 +7,6 @@ import { getNumberOfItems, getSortingKey } from './filters';
 export const FETCH_COINS_REQUEST = 'coins/fetch_coins_request';
 export const FETCH_COINS_SUCCESS = 'coins/fetch_coins_success';
 export const FETCH_COINS_FAILURE = 'coins/fetch_coins_failure';
-
 
 //Action Creators
 export const fetchCoins = () => async dispatch => {
@@ -33,36 +31,20 @@ export const fetchCoins = () => async dispatch => {
 //Reducer
 const initialState = {
     marketData: [],
-    bySymbol: {},
-    allSymbols: [],
-    byRank: {},
-    allRanks: [],
   };
 
 export default function reducer(state = initialState, action) {
     switch(action.type) {
         case FETCH_COINS_SUCCESS:
-            const normalizedSymbols = normalize(action.payload, coinListSymbolSchema);
-            const normalizedRanks = normalize(action.payload, coinListRankSchema);
             return {
                 ...state,
                 marketData: action.payload,
-                bySymbol: normalizedSymbols.entities.symbols,
-                allSymbols: normalizedSymbols.result,
-                byRank: normalizedRanks.entities.ranks,
-                allRanks: _.sortBy(normalizedRanks.result),
             };
 
         default:
             return state;
     }
 }
-
-//Store Schema
-export const coinSymbolSchema = new schema.Entity('symbols', undefined, {idAttribute: 'symbol'});
-export const coinListSymbolSchema = [ coinSymbolSchema ];
-export const coinRankSchema = new schema.Entity('ranks', undefined, {idAttribute: 'rank'});
-export const coinListRankSchema = [ coinRankSchema ];
 
 //Selectors
 export const getCoins = (state) => {
@@ -81,8 +63,10 @@ export const getCoinsByKey = (state) => {
 export const getCoinListByKey = (state) => {
     const key = getSortingKey(state);
     const coins = getCoins(state);
-    //const n = getNumberOfItems(state);
-    return coins.marketData.map(coin => {
+    const n = getNumberOfItems(state);
+    return coins.marketData.sort((coin1, coin2) => {
+        return coin1[key] < coin2[key] ? -1 : 1;
+    }).slice(0, n).map(coin => {
         return coin[key]
     })
 }
