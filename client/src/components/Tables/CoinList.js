@@ -16,7 +16,7 @@ const styles = {
     },
   };
 
-const CoinList = ({recordType, item, list, classes, children, ...filters}) => {
+const CoinList = ({recordType, classes, children}) => {
     return (
         <Paper className={classes.root}>
             <Table className={classes.table}>
