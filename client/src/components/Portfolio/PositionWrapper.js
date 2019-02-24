@@ -2,13 +2,7 @@ import React, { Fragment } from 'react';
 import _ from 'lodash';
 import CoinList from '../Tables/CoinList';
 
-const PositionWrapper = ({data}) => {
-    var positions = _(data)
-                        .groupBy('symbol')
-                        .map((objs, key) => ({
-                            'symbol': key,
-                            'total_quantity': _.sumBy(objs, 'quantity') }))
-                        .value();
+const PositionWrapper = ({positions}) => {
     return (
         <Fragment>
             {/*<CoinList 

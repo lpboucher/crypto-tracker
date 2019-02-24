@@ -1,21 +1,23 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchTransactions, getTradesById, getSortedTradeListById } from '../../ducks/trades';
-import OverviewComponent from './OverviewComponent';
+import { getPositions } from '../../ducks/positions';
+import PortfolioComponent from './PortfolioComponent';
 import withLoading from '../utils/hocs/withLoading';
 
-const LoadingOverview = withLoading(OverviewComponent);
+const LoadingPortfolio = withLoading(PortfolioComponent);
 
-class OverviewContainer extends Component {
+class PortfolioContainer extends Component {
     componentDidMount() {
         this.props.fetchTransactions();
       };
 
     render() {
-        const { transactions } = this.props;
+        const { transactions, positions } = this.props;
         return (
-        <LoadingOverview
+        <LoadingPortfolio
             trades={transactions}
+            positions={positions}
         />
         );
     }
@@ -24,8 +26,9 @@ class OverviewContainer extends Component {
 function mapStateToProps(state) {
     return { 
         transactions: { byId: getTradesById(state),
-            allIds: getSortedTradeListById(state)
+            allIds: getSortedTradeListById(state),
         },
+        positions: getPositions(state)
     };
 };
 
@@ -35,4 +38,4 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(OverviewContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(PortfolioContainer);

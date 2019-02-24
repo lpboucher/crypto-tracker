@@ -7,13 +7,13 @@ import TransactionRow from '../Tables/TransactionRow';
 import RemoveTrade from '../TradeForm/RemoveTrade';
 import UpdateTrade from '../TradeForm/UpdateTrade';
 
-const OverviewComponent = ({ trades }) => {
-    const { tradeList, allIds, byId } = trades;
+const PortfolioComponent = ({ trades, positions }) => {
+    const { allIds, byId } = trades;
     return (
         <Fragment>
-            <PositionWrapper data={tradeList}></PositionWrapper>
+            <PositionWrapper positions={positions}></PositionWrapper>
             <SimpleBarChart data={byId}/>
-            <CoinList recordType='transactions'>
+            <CoinList recordType='positions'>
                 { allIds.map(currentItem => (
                     <TransactionRow key={byId[currentItem]._id} trade={byId[currentItem]} displayIn="as paid">
                         <UpdateTrade trade={byId[currentItem]}/>
@@ -25,4 +25,4 @@ const OverviewComponent = ({ trades }) => {
     );
 };
 
-export default OverviewComponent;
+export default PortfolioComponent;
