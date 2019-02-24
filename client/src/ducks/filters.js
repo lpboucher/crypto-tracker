@@ -10,7 +10,8 @@ export const updateFilterOption = (newOption, filterName) => dispatch => {
 const initialState = {
     itemsToShow: 20,
     displayIn: 'as paid',
-    sortBy: 'rank'
+    sortCoins: 'rank',
+    sortTrades: 'date',
   };
 
 export default function reducer(state = initialState, action) {
@@ -31,7 +32,11 @@ export const getDisplayCurrency = (state) => {
     return state.filters.displayIn;
 }
 
-export const getSortingKey = (state) => {
-    return state.filters.sortBy;
+export const getCoinSortingKey = (state) => {
+    return state.filters.sortCoins;
+}
+
+export const getTradeSortingKey = (state) => {
+    return state.filters.sortTrades;
 }
 // ADD SELECTOR TO GET THE CURRENT DISPLAY KEY

@@ -5,3 +5,5 @@ export const CURRENCIES = ['USD', 'ETH', 'BTC'];
 export const DISPLAY_CURRS = ['USD', 'BTC', 'as paid']
 
 export const SORT_COINS_BY = ['rank', 'symbol']
+
+export const SORT_TRADES_BY = ['date', 'type']

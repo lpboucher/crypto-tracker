@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchCoins, getCoinsByKey, getCoinListByKey } from '../../ducks/coins';
-import { updateFilterOption, getNumberOfItems, getSortingKey } from '../../ducks/filters';
+import { updateFilterOption, getNumberOfItems, getCoinSortingKey } from '../../ducks/filters';
 import MarketComponent from './MarketComponent';
 import withLoading from '../utils/hocs/withLoading';
 
@@ -33,7 +33,7 @@ function mapStateToProps(state) {
             allKeys: getCoinListByKey(state),
         },
         itemsToShow: getNumberOfItems(state),
-        sortBy: getSortingKey(state),
+        sortBy: getCoinSortingKey(state),
     };
 };
 

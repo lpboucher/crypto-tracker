@@ -22,7 +22,7 @@ const MarketComponent = ({ coins, handleOptionChange, ...filters }) => {
                 id="sorting-selection"
                 label="sort by"
                 value={filters.sortCoinsBy}
-                name="sortBy"
+                name="sortCoins"
                 optionChange={handleOptionChange}
                 options={SORT_COINS_BY}
             />
