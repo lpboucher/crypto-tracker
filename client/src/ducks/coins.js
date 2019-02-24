@@ -1,7 +1,7 @@
 import axios from 'axios';
 import _ from 'lodash';
 
-import { getNumberOfItems, getSortingKey } from './filters';
+import { getNumberOfItems, getCoinSortingKey } from './filters';
 
 //Action Types
 export const FETCH_COINS_REQUEST = 'coins/fetch_coins_request';
@@ -51,8 +51,8 @@ export const getCoins = (state) => {
     return state.coins;
   }
 
-export const getCoinsByKey = (state) => {
-    const key = getSortingKey(state);
+  export const getCoinsBySymbol = (state) => {
+    const key = 'symbol';
     const coins = getCoins(state);
     return coins.marketData.reduce((obj, item) => {
         obj[item[key]] = item;
@@ -60,8 +60,25 @@ export const getCoinsByKey = (state) => {
    }, {})
 }
 
+export const getCoinsByKey = (state) => {
+    const key = getCoinSortingKey(state);
+    const coins = getCoins(state);
+    return coins.marketData.reduce((obj, item) => {
+        obj[item[key]] = item;
+     return obj;
+   }, {})
+}
+
+export const getCoinListBySymbol = (state) => {
+    const key = 'symbol';
+    const coins = getCoins(state);
+    return coins.marketData.map(coin => {
+        return coin[key]
+    })
+}
+
 export const getCoinListByKey = (state) => {
-    const key = getSortingKey(state);
+    const key = getCoinSortingKey(state);
     const coins = getCoins(state);
     const n = getNumberOfItems(state);
     return coins.marketData.sort((coin1, coin2) => {

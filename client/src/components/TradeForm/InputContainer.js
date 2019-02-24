@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { closeDrawer } from '../../ducks/views';
-import { fetchCoins } from '../../ducks/coins';
-import { submitTrade, fetchTransactions } from '../../ducks/trades';
+import { fetchCoins, getCoinsBySymbol, getCoinListBySymbol } from '../../ducks/coins';
+import { submitTrade, fetchTransactions, getActiveTrade } from '../../ducks/trades';
 import InputDrawer from './InputDrawer';
 
 class InputContainer extends Component {
@@ -16,7 +16,7 @@ class InputContainer extends Component {
                     handleClose={closeDrawer}
                     coinSymbols={coins ? coins.allSymbols : null}
                     coinNames={coins ? coins.bySymbol : null}
-                    initialValues={transactions.activeTradeValues}
+                    initialValues={transactions}
                 />
                 
             </div>
@@ -26,8 +26,11 @@ class InputContainer extends Component {
 
 function mapStateToProps(state) {
     return { 
-        coins: state.coins,
-        transactions: state.transactions,
+        coins: {
+            bySymbol: getCoinsBySymbol(state),
+            allSymbols: getCoinListBySymbol(state),
+        },
+        transactions: getActiveTrade(state),
         isOpen: state.views.isDrawerOpen,
     };
 };
