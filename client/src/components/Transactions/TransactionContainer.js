@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchTransactions } from '../../ducks/trades';
-import { updateFilterOption } from '../../ducks/filters';
+import { fetchTransactions, getTradesById, getSortedTradeListById } from '../../ducks/trades';
+import { updateFilterOption, getNumberOfItems, getDisplayCurrency, getTradeSortingKey } from '../../ducks/filters';
 import TransactionComponent from './TransactionComponent';
 import withLoading from '../utils/hocs/withLoading';
 
@@ -14,10 +14,11 @@ class TransactionContainer extends Component {
       };
 
     render() {
-        const { transactions, itemsToShow, updateFilterOption, displayIn } = this.props;
+        const { transactions, itemsToShow, updateFilterOption, displayIn, sortBy } = this.props;
         return (
         <LoadingTrades
             trades={transactions}
+            sortTradesBy={sortBy}
             displayIn={displayIn}
             tradesToShow={itemsToShow}
             handleOptionChange={updateFilterOption}
@@ -28,9 +29,12 @@ class TransactionContainer extends Component {
 
 function mapStateToProps(state) {
     return { 
-        transactions: state.transactions,
-        itemsToShow: state.filters.itemsToShow,
-        displayIn: state.filters.displayIn
+        transactions: { byId: getTradesById(state),
+                        allIds: getSortedTradeListById(state)
+                    },
+        itemsToShow: getNumberOfItems(state),
+        displayIn: getDisplayCurrency(state),
+        sortBy: getTradeSortingKey(state)
     };
 };
 

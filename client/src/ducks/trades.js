@@ -1,7 +1,7 @@
 import axios from 'axios';
-import { schema, normalize } from 'normalizr';
 import { reset } from 'redux-form';
 
+import { getNumberOfItems, getTradeSortingKey } from './filters';
 
 //Action Types
 export const FETCH_TRADES_REQUEST = 'trades/fetch_trades_request';
@@ -23,10 +23,10 @@ const fetchPrices = async (ticker, date, current_currency, current_price) => {
 
     const queryCurr = ['USD', 'BTC'].filter(currency => currency !== current_currency);
 
-    const endDate = new Date(date);
-    endDate.setDate(endDate.getDate() + 1);
+    const startDate = new Date(date);
+    startDate.setDate(startDate.getDate() - 1);
 
-    const priceData = await axios.get(`${baseUrl}/${ticker}/historical?quote=${queryCurr[0]}&start=${date}&end=${endDate.toISOString('T').slice(0,10)}&interval=24h`);
+    const priceData = await axios.get(`${baseUrl}/${ticker}/historical?quote=${queryCurr[0]}&start=${startDate.toISOString('T').slice(0,10)}&end=${date}&interval=24h`);
 
     return {
             [current_currency]: parseFloat(current_price),
@@ -93,65 +93,43 @@ export const removeTrade = (id) => async dispatch => {
     }
 }
 
-
-//Store Schema
-const transactionSchema = new schema.Entity('transactions');
-const transactionListSchema = [ transactionSchema ];
-
-
 //Reducer
 const initialState = {
-    byId: {},
-    allIds: [],
+    tradeList: [],
     activeTradeValues: {},
   };
 
 export default function reducer(state = initialState, action) {
     switch(action.type) {
         case FETCH_TRADES_SUCCESS:
-            const normalizedData = normalize(action.payload, transactionListSchema);
             return {
                 ...state,
-                byId: normalizedData.entities.transactions,
-                allIds: normalizedData.result,
                 tradeList: action.payload,
             };
         case UPDATE_TRADE_SUCCESS:
-            const updatedIds = state.allIds.map(item => {
-                if(item === action.payload.id) {
-                    return action.payload.id;
+            const updatedIds = state.tradeList.map(item => {
+                if(item.id === action.payload.id) {
+                    return { ...item, ...action.payload }
                 }
                 return item;
             });
             return {
                 ...state,
-                allIds: updatedIds,
-                byId: {
-                    ...state.byId,
-                    [action.payload.id]: {
-                        ...action.payload
-                    }
-                },
+                tradeList: updatedIds
             }
         case NEW_TRADE_SUCCESS:
             return {
                 ...state,
-                allIds: [ ...state.allIds, action.payload.id],
-                byId: {
-                    ...state.byId,
-                    [action.payload.id]: action.payload
-                },
+                tradeList: [ ...state.tradeList, action.payload],
             }
         case REMOVE_TRADE_SUCCESS:
-            const removedIds = state.allIds.filter(id => {
-                return id !== action.payload
+            const removedTrades = state.tradeList.filter(trade => {
+                return trade.id !== action.payload
               })
-            delete state.byId[action.payload];
                  
             return {
                     ...state,
-                    allIds: removedIds,
-                    byId: state.byId,
+                    tradeList: removedTrades,
             };
         //need to account for errors in fetching trades, return error message
         case FETCH_TRADES_FAILURE:
@@ -186,6 +164,47 @@ export default function reducer(state = initialState, action) {
 }
 
 //Selectors
+export const getTrades = (state) => {
+    return state.transactions;
+}
+
+export const getActiveTrade = (state) => {
+    return state.transactions.activeTradeValues;
+}
+
+//Hard-coded to fetch by Id
 export const getTradesById = (state) => {
-    return state.transactions.byId;
+    const trades = getTrades(state);
+    return trades.tradeList.reduce((obj, item) => {
+        obj[item.id] = item;
+    return obj;
+    }, {})
   }
+
+export const getAllTradeIds = (state) => {
+    const trades = getTrades(state);
+    return trades.tradeList.map(trade => {
+        return trade.id
+    })
+}
+
+//Do be deleted, work from ID hash
+export const getTradesByKey = (state) => {
+    const key = getTradeSortingKey(state);
+    const trades = getTrades(state);
+    return trades.tradeList.reduce((obj, item) => {
+        obj[item[key]] = item;
+    return obj;
+    }, {})
+  }
+
+export const getSortedTradeListById = (state) => {
+    const key = getTradeSortingKey(state);
+    const trades = getTrades(state);
+    const n = getNumberOfItems(state);
+    return trades.tradeList.sort((trade1, trade2) => {
+        return trade1[key] < trade2[key] ? -1 : 1;
+    }).slice(0, n).map(trade => {
+        return trade.id
+    })
+}

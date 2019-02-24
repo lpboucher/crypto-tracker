@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchTransactions } from '../../ducks/trades';
+import { fetchTransactions, getTradesById, getSortedTradeListById } from '../../ducks/trades';
 import OverviewComponent from './OverviewComponent';
 import withLoading from '../utils/hocs/withLoading';
 
@@ -23,7 +23,9 @@ class OverviewContainer extends Component {
 
 function mapStateToProps(state) {
     return { 
-        transactions: state.transactions,
+        transactions: { byId: getTradesById(state),
+            allIds: getSortedTradeListById(state)
+        },
     };
 };
 
