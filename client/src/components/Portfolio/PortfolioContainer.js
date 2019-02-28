@@ -1,23 +1,26 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchTransactions, getTradesById, getSortedTradeListById } from '../../ducks/trades';
-import { getPositions } from '../../ducks/positions';
+import { fetchTransactions } from '../../ducks/trades';
+import { getPositions, getPositionSymbols } from '../../ducks/positions';
+import { updateFilterOption, getDisplayCurrency } from '../../ducks/filters';
 import PortfolioComponent from './PortfolioComponent';
 import withLoading from '../utils/hocs/withLoading';
 
 const LoadingPortfolio = withLoading(PortfolioComponent);
 
 class PortfolioContainer extends Component {
+    //need to think about fetching data as dashboard mounts
     componentDidMount() {
         this.props.fetchTransactions();
       };
 
     render() {
-        const { transactions, positions } = this.props;
+        const { positions, updateFilterOption, displayIn } = this.props;
         return (
         <LoadingPortfolio
-            trades={transactions}
             positions={positions}
+            displayIn={displayIn}
+            handleOptionChange={updateFilterOption}
         />
         );
     }
@@ -25,16 +28,17 @@ class PortfolioContainer extends Component {
 
 function mapStateToProps(state) {
     return { 
-        transactions: { byId: getTradesById(state),
-            allIds: getSortedTradeListById(state),
+        positions: { bySymbol: getPositions(state),
+            allSymbols: getPositionSymbols(state),
         },
-        positions: getPositions(state)
+        displayIn: getDisplayCurrency(state),
     };
 };
 
 function mapDispatchToProps(dispatch) {
     return {
         fetchTransactions: () => dispatch(fetchTransactions()),
+        updateFilterOption: (option, filter) => dispatch(updateFilterOption(option, filter))
     };
 }
 

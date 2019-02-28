@@ -1,26 +1,30 @@
 import React, { Fragment } from 'react';
 
-import PositionWrapper from './PositionWrapper';
 import SimpleBarChart from '../charts/BarChart';
+import OptionFilter from '../utils/filters/OptionFilter';
 import CoinList from '../Tables/CoinList';
-import TransactionRow from '../Tables/TransactionRow';
-import RemoveTrade from '../TradeForm/RemoveTrade';
-import UpdateTrade from '../TradeForm/UpdateTrade';
+import PositionRow from '../Tables/PositionRow';
 
-const PortfolioComponent = ({ trades, positions }) => {
-    const { allIds, byId } = trades;
+import { DISPLAY_CURRS } from '../../constants/DropOptions'
+
+const PortfolioComponent = ({ positions, handleOptionChange,...filters }) => {
+    const { bySymbol, allSymbols } = positions;
     return (
         <Fragment>
-            <PositionWrapper positions={positions}></PositionWrapper>
-            <SimpleBarChart data={byId}/>
+            {/*<SimpleBarChart data={byId}/>*/}
+            <OptionFilter
+                id="display-currency-selection"
+                label="Display in"
+                value={filters.displayIn}
+                name='displayIn'
+                optionChange={handleOptionChange}
+                options={DISPLAY_CURRS}
+            />
             <CoinList recordType='positions'>
-                { allIds.map(currentItem => (
-                    <TransactionRow key={byId[currentItem]._id} trade={byId[currentItem]} displayIn="as paid">
-                        <UpdateTrade trade={byId[currentItem]}/>
-                        <RemoveTrade tradeId={byId[currentItem]._id} />
-                    </TransactionRow>
+                { allSymbols.map(symbol => (
+                    <PositionRow key={symbol} position={bySymbol[symbol]} displayIn={filters.displayIn} />
                 )) }
-            </CoinList>
+                </CoinList>
         </Fragment>
     );
 };
