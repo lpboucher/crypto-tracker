@@ -26,6 +26,8 @@ export const TABLE_FIELDS = {
         { label: 'Name', numeric: false},
         { label: 'Quantity', numeric: true},
         { label: 'Average cost', numeric: true},
+        { label: 'Total cost', numeric: true},
         { label: 'Current price', numeric: true},
+        { label: 'Gain/loss $', numeric: true},
         { label: 'Gain/loss %', numeric: true}
     ]};
