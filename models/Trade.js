@@ -16,11 +16,14 @@ const tradeSchema = new Schema({
     _user: { type: Schema.Types.ObjectId, ref: 'User'},
 });
 
-tradeSchema.set('toObject', { virtuals: true });
+tradeSchema.set('toObject', { getters: true });
 tradeSchema.set('toJSON', { virtuals: true });
 
-tradeSchema.virtual('totalCost').get(function () {
-    return this.price * this.quantity;
+tradeSchema.virtual('total_cost').get(function () {
+    return {
+        USD: this.prices.USD * this.quantity,
+        BTC: this.prices.BTC * this.quantity,
+    }
   });
 
 mongoose.model('trades', tradeSchema);
