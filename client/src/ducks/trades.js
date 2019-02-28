@@ -188,6 +188,13 @@ export const getAllTradeIds = (state) => {
     })
 }
 
+export const getAllTradeSymbols = (state) => {
+    const trades = getTrades(state);
+    return trades.tradeList.map(trade => {
+        return trade.symbol
+    })
+}
+
 //Do be deleted, work from ID hash
 export const getTradesByKey = (state) => {
     const key = getTradeSortingKey(state);

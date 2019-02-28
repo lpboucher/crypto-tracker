@@ -51,7 +51,7 @@ export const getCoins = (state) => {
     return state.coins;
   }
 
-  export const getCoinsBySymbol = (state) => {
+export const getCoinsBySymbol = (state) => {
     const key = 'symbol';
     const coins = getCoins(state);
     return coins.marketData.reduce((obj, item) => {
