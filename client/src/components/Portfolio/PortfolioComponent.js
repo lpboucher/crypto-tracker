@@ -11,7 +11,7 @@ const PortfolioComponent = ({ positions, handleOptionChange,...filters }) => {
     const { bySymbol, allSymbols } = positions;
     return (
         <Fragment>
-            {/*<SimpleBarChart data={byId}/>*/}
+            <SimpleBarChart data={bySymbol}/>
             <OptionFilter
                 id="display-currency-selection"
                 label="Display in"
