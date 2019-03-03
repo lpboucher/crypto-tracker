@@ -6,7 +6,6 @@ import TableCell from '@material-ui/core/TableCell';
 const PositionRow = ({ position, ...filters }) => {
     const { date, symbol, name, quantityHeld, totalCost, currentPrice, gainLoss, paid_in } = position;
     const displayCurr = filters.displayIn !== "as paid" ? filters.displayIn : paid_in;
-    console.log(filters.displayIn);
     const averageCost = totalCost[displayCurr] / quantityHeld;
     return (
         <TableRow>
