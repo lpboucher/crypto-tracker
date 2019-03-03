@@ -10,8 +10,6 @@ import {
     Legend,
 } from 'recharts';
 
-const RADIAN = Math.PI / 180; 
-
 const SimpleBarChart = ({data}) => {
     return (
         <ResponsiveContainer width="99%" height={400}>
